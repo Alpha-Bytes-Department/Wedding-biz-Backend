@@ -14,6 +14,9 @@ function setupSocket(server) {
       allowedHeaders: ["Content-Type", "Authorization"],
     },
     allowEIO3: true, // Allow Engine.IO v3 clients
+    transports: ["polling", "websocket"], // Try polling first for better compatibility
+    pingTimeout: 60000,
+    pingInterval: 25000,
   });
 
   // Store active users and rooms
