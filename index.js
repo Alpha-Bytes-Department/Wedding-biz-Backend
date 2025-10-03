@@ -220,8 +220,8 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Serve frontend/public folder
-app.use(express.static(path.join(__dirname, "public")));
+// // Serve frontend/public folder
+// app.use(express.static(path.join(__dirname, "public")));
 
 // Create HTTP server
 const server = http.createServer(app);
@@ -234,7 +234,7 @@ const io = setupSocket(server);
 app.set("io", io);
 
 // Root route
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
@@ -284,9 +284,9 @@ app.use("/api/*", (req, res) => {
 });
 
 // Handle all other routes (for SPA)
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.use("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 // Start Server
 server.listen(PORT, () => {
