@@ -37,7 +37,7 @@ exports.registerUser = async (req, res) => {
     const emailToken = jwt.sign({ id: user._id }, EMAIL_SECRET, {
       expiresIn: "1d",
     });
-    const url = `http://localhost:3000/verify/${emailToken}`;
+    const url = `${process.env.FRONTEND_URL}/verify/${emailToken}`;
 
     // Send mail
     const transporter = nodemailer.createTransport({
@@ -49,6 +49,7 @@ exports.registerUser = async (req, res) => {
     });
 
     await transporter.sendMail({
+      from: `"Erie Wedding Officiants" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Verify your email - ERIE WEDDING OFFICIANT",
       html: `
@@ -298,7 +299,7 @@ exports.forgetPassword = async (req, res) => {
     });
 
     // Create reset URL
-    const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
     // Send reset email
     const transporter = nodemailer.createTransport({
@@ -310,6 +311,7 @@ exports.forgetPassword = async (req, res) => {
     });
 
     await transporter.sendMail({
+      from: `"Erie Wedding Officiants" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Password Reset Request - ERIE WEDDING OFFICIANT",
       html: `
