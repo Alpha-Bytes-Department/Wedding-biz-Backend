@@ -24,9 +24,18 @@ exports.createReview = async (req, res) => {
       !officiantId ||
       !eventName
     ) {
+      const missingFields = [];
+      if (!userId) missingFields.push("userId");
+      if (!userImageUrl) missingFields.push("userImageUrl");
+      if (!userName) missingFields.push("userName");
+      if (!rating) missingFields.push("rating");
+      if (!eventId) missingFields.push("eventId");
+      if (!officiantId) missingFields.push("officiantId");
+      if (!eventName) missingFields.push("eventName");
+      
       return res
         .status(400)
-        .json({ msg: "All fields are required except rating description" });
+        .json({ msg: `Missing required fields: ${missingFields.join(", ")}` });
     }
     const newReview = new review({
       userId,

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const reviewSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },
@@ -22,7 +22,7 @@ const reviewSchema = new mongoose.Schema(
       max: 5,
     },
     eventId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       
       required: true,
     },
@@ -31,8 +31,7 @@ const reviewSchema = new mongoose.Schema(
       required: false,
     },
     officiantId: {
-      type: mongoose.Schema.Types.ObjectId,
-      
+      type: String,
       required: true,
     },
     eventName: {
@@ -45,7 +44,7 @@ const reviewSchema = new mongoose.Schema(
     },
     isVisible:{
         type:Boolean,
-        default:false
+        default:true
     }
   },
   {
