@@ -1,0 +1,192 @@
+[
+  {
+    "name": "Steve",
+    "email": "steve@erieweddingofficiants.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Steve has been serving as a wedding officiant since 2012, helping couples embark on their marital journeys. Over the past decade, he has had the privilege of officiating more than 400 weddings, each one a unique reflection of the love and commitment shared by two individuals. From intimate elopements to grand celebrations, his experience allows him to craft ceremonies that are meaningful, personal, and truly unforgettable. It's a joy to be a part of such a significant moment in people's lives, and Steve looks forward to continuing to create cherished memories for many years to come.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Personalized and Traditional Wedding Ceremonies",
+    "isVerified": true,
+    "createdAt": { "$date": "2025-10-14T00:00:00Z" },
+    "updatedAt": { "$date": "2025-10-14T00:00:00Z" }
+  },
+  {
+    "name": "Tracey",
+    "email": "traceymmerlino@gmail.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Tracey is a dedicated wedding officiant with a passion for crafting personalized and memorable ceremonies. For many years, she has brought warmth and sincerity to countless weddings, guiding couples through one of the most significant moments of their lives. With a commitment to reflecting each couple's unique story, she specializes in creating ceremonies that are both heartfelt and truly unforgettable. Whether it's an intimate gathering or a large celebration, Tracey ensures every detail resonates with love and joy, making each wedding a cherished memory.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Heartfelt and Customized Ceremonies",
+    "isVerified": true,
+    "createdAt": { "$date": "2025-10-14T00:00:00Z" },
+    "updatedAt": { "$date": "2025-10-14T00:00:00Z" }
+  },
+  {
+    "name": "Julie",
+    "email": "juliemskelly@gmail.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Julie is a passionate new officiant dedicated to crafting personalized and heartfelt wedding ceremonies. She loves collaborating with couples to weave their unique stories into every vow and moment. Expect a warm, engaging presence and a ceremony that truly reflects your love, becoming a cherished memory for years to come. Julie is committed to helping you create an unforgettable experience, focusing on genuine connections and joyful celebration as you begin your journey together.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Personalized Wedding Ceremonies",
+    "isVerified": true,
+    "createdAt": { "$date": "2025-10-14T00:00:00Z" },
+    "updatedAt": { "$date": "2025-10-14T00:00:00Z" }
+  },
+  {
+    "name": "Matt",
+    "email": "matthewmhammond@gmail.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Matt brings a fresh perspective and a heartfelt desire to craft ceremonies that are as unique as the couples he serves. Matt believes in creating a relaxed and joyful atmosphere, ensuring you and your guests feel comfortable and engaged throughout the ceremony. Matt is dedicated to clear communication and meticulous planning, working closely with you to ensure every detail, from the vows to the readings, reflects your vision perfectly. He's excited to help you create lasting memories.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Relaxed and Joyful Ceremonies",
+    "isVerified": true,
+    "createdAt": { "$date": "2025-10-14T00:00:00Z" },
+    "updatedAt": { "$date": "2025-10-14T00:00:00Z" }
+  },
+  {
+    "name": "Laurie",
+    "email": "lauriehitt@gmail.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Laurie is an enthusiastic officiant committed to designing personalized and meaningful wedding ceremonies. She loves connecting with couples and tailoring every detail to reflect their unique love story, ensuring a truly unforgettable experience. Laurie's warm approach helps couples feel at ease, allowing their authentic connection to shine through. She's dedicated to making your ceremony a cherished highlight of your wedding.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Personalized and Meaningful Ceremonies",
+    "isVerified": true,
+    "createdAt": { "$date": "2025-10-14T00:00:00Z" },
+    "updatedAt": { "$date": "2025-10-14T00:00:00Z" }
+  }
+]
