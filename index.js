@@ -11,6 +11,9 @@ const compression = require("compression");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Trust proxy - MUST be set before any middleware that depends on client IP
+app.set('trust proxy', 1);
+
 // Middleware - Move security middleware to the top
 app.use(
   helmet({
@@ -30,32 +33,41 @@ app.use(
 // Compression
 app.use(compression());
 
-// CORS configuration - Allow all origins
+// CORS configuration - Allow all origins (completely open)
 app.use(
   cors({
-    origin: true, // This allows all origins and works with credentials
+    origin: "*", // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    credentials: true,
-    optionsSuccessStatus: 200, // For legacy browser support
+    allowedHeaders: [
+      "Content-Type", 
+      "Authorization", 
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+      "Cache-Control",
+      "X-Forwarded-For"
+    ],
+    credentials: false, // Set to false when origin is "*"
+    optionsSuccessStatus: 200,
+    preflightContinue: false,
   })
 );
 
 // Additional middleware to handle preflight requests
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
   res.header(
     "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, X-Requested-With"
+    "Content-Type, Authorization, X-Requested-With, Accept, Origin, Cache-Control, X-Forwarded-For"
   );
-  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Max-Age", "86400"); // 24 hours
 
   if (req.method === "OPTIONS") {
-    res.sendStatus(200);
+    return res.status(200).end();
   } else {
     next();
   }
@@ -103,13 +115,12 @@ app.use("/uploads", (req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, X-Requested-With"
+    "Content-Type, Authorization, X-Requested-With, Accept, Origin, Cache-Control"
   );
-  res.header("Access-Control-Allow-Credentials", "true");
   res.header("Cross-Origin-Resource-Policy", "cross-origin");
 
   if (req.method === "OPTIONS") {
-    res.sendStatus(200);
+    return res.status(200).end();
   } else {
     next();
   }
