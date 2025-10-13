@@ -121,7 +121,7 @@ exports.registerUser = async (req, res) => {
 
 exports.socialLogin = async (req, res) => {
   try {
-    const { email, partner_1, partner_2, profilePicture } = req.body;
+    const { email, partner_1, partner_2, name, profilePicture } = req.body;
     if (!email) {
       return res.status(400).json({ msg: "Email is required" });
     }
@@ -136,6 +136,7 @@ exports.socialLogin = async (req, res) => {
         email,
         partner_1,
         partner_2,
+        name,
         profilePicture,
         password: randomPassword,
         isVerified: true, // Social logins are considered verified
@@ -444,7 +445,7 @@ exports.updateUser = async (req, res) => {
     const updateFields = {};
     const allowedFields = [
       "partner_1",
-      "part ner_2",
+      "partner_2",
       "phone",
       "bio",
       "bookingMoney",

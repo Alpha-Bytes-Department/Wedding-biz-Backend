@@ -22,6 +22,7 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
+        connectSrc: ["'self'", "wss:", "ws:", "https:", "http:"], // Allow WebSocket connections
         styleSrc: ["'self'", "'unsafe-inline'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "https:", "http:"], // Allow http images
