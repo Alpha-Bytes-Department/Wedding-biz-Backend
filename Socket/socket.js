@@ -186,27 +186,22 @@ function setupSocket(server) {
         console.log(
           `📊 Found ${existingMessages.length} existing messages for room ${roomId}`
         );
+
+        // Always emit loadExistingMessages, even if empty
+        socket.emit("loadExistingMessages", {
+          roomId,
+          messages: existingMessages,
+        });
+
         if (existingMessages.length > 0) {
           const bookingProposals = existingMessages.filter(
             (msg) => msg.type === "booking_proposal"
           );
-          // console.log(
-          //   `📅 Found ${bookingProposals.length} booking proposals:`,
-          //   bookingProposals.map((bp) => ({
-          //     id: bp._id,
-          //     messageId: bp.messageId,
-          //     eventName: bp.bookingData?.eventName,
-          //     status: bp.bookingData?.status,
-          //   }))
-          // );
-
-          socket.emit("loadExistingMessages", {
-            roomId,
-            messages: existingMessages,
-          });
           console.log(`📤 Sent ${existingMessages.length} messages to client`);
         } else {
-          console.log(`📭 No existing messages found for room ${roomId}`);
+          console.log(
+            `📭 No existing messages found for room ${roomId} - sent empty array`
+          );
         }
       } catch (error) {
         console.error("Error managing room in database:", error);
