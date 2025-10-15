@@ -29,7 +29,7 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ msg: "Email already exists" });
     }
 
-    user = new User({ partner_1, partner_2, email, password });
+    user = new User({ partner_1, partner_2, email, password ,name:partner_1 || partner_2});
     await user.save();
     console.log("User saved to database:", user._id);
 

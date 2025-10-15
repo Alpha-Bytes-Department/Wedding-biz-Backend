@@ -13,7 +13,7 @@ exports.getUserNotifications = async (req, res) => {
     // console.log(`Fetching notifications for user ID: ${tokenUserId}`);
     const notifications = await Notification.find({
       userId: tokenUserId.toString(),
-    }).sort({ createdAt: -1 });
+    }).sort({ createdAt: 1 });
 
     res.status(200).json({ notifications });
   } catch (err) {
@@ -60,6 +60,7 @@ exports.createNotificationManual = async (req, res) => {
 exports.createNotification = async (userId, type, customMessage ) => {
   try {
     const message = customMessage;
+    console.log("Creating notification with message:", message);
     if (!message) {
       console.log("No custom message provided");
       return null;

@@ -9,10 +9,16 @@ exports.createSchedule = async (req, res) => {
     console.log("Creating schedule with data:", req.body);
     createNotification(
       req.body.officiantId,
-      "booking",
+      "Booking",
       `You have a new booking from ${req.body.fromUserName} on ${req.body.scheduleDate}.`
     );
     await schedule.save();
+    createNotification(
+      req.body.fromUserId,
+      "Booking",
+      `Your booking request with ${req.body.officiantName} on ${req.body.scheduleDate} is ${schedule.approvedStatus}.`
+    );
+    console.log("Schedule created successfully:", schedule.approvedStatus);
     res.status(201).json(schedule);
   } catch (error) {
     console.error("Error creating schedule:", error);
@@ -61,7 +67,7 @@ exports.updateScheduleStatus = async (req, res) => {
 
     if(schedule) createNotification(schedule.fromUserId, "Schedule Update", `Your booking request has been ${approvedStatus}.`);
 
-    createNotification(schedule.fromUserId,"Booking",`Your booking  has been ${approvedStatus ? "approved" : "rejected"}.`);
+    createNotification(schedule.fromUserId,"Booking",`Your booking  has been ${approvedStatus }.`);
     res.status(200).json(schedule);
   } catch (error) {
     res.status(500).json({ error: error.message });

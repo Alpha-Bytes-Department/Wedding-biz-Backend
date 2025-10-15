@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const ScheduleSchema = new mongoose.Schema({
     fromUserId: { type: String, required: true },
     fromUserName: { type: String, required: true },
+    fromUserImage: { type: String, required: false },
     eventId: { type: String },
     eventName: { type: String },
     scheduleDate: { type: Date, required: false },
