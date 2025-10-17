@@ -799,7 +799,7 @@ router.get("/users-for-officiant/:officiantId", async (req, res) => {
         );
         return {
           ...user.toObject(),
-          name: user.partner_1 || user.partner_2 || "User",
+          name: user.name || user.partner_1 || "User",
           lastMessageTime: chatInfo?.lastMessage,
           online: false, // Will be updated by socket
         };

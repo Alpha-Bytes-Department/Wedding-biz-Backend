@@ -65,9 +65,7 @@ exports.updateScheduleStatus = async (req, res) => {
         { new: true }
     );
 
-    if(schedule) createNotification(schedule.fromUserId, "Schedule Update", `Your booking request has been ${approvedStatus}.`);
-
-    createNotification(schedule.fromUserId,"Booking",`Your booking  has been ${approvedStatus }.`);
+    if(schedule) createNotification(schedule.fromUserId, "Booking", `Your booking request has been ${approvedStatus}.`);
     res.status(200).json(schedule);
   } catch (error) {
     res.status(500).json({ error: error.message });

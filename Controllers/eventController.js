@@ -1,5 +1,5 @@
 const event = require("../Models/EventSchema");
-
+const {createNotification}=require('./notificationController')
 // create event
 exports.createEvent = async (req, res) => {
   try {
@@ -12,6 +12,9 @@ exports.createEvent = async (req, res) => {
     }
     const newEvent = new event(req.body);
     const savedEvent = await newEvent.save();
+    if(savedEvent.status === 'submitted'){
+      createNotification(savedEvent.officiantId, 'Ceremony', `New Ceremony "${savedEvent.title}" has been submitted.` );
+    }
     res.status(201).json({
       msg: "Event created successfully",
       event: savedEvent,
@@ -44,9 +47,13 @@ exports.updateEvent = async (req, res) => {
       new: true,
       runValidators: true,
     });
+    if(updatedEvent.status === 'completed'){
+      createNotification(updatedEvent.userId, 'Ceremony', `Your Ceremony "${updatedEvent.title}" has been marked as completed.` );
+    }
     if (!updatedEvent) {
       return res.status(404).json({ error: "Event not found" });
     }
+
     res.status(200).json({ msg: "Event updated successfully", updatedEvent });
   } catch (err) {
     console.error("Error updating event:", err);
@@ -59,6 +66,10 @@ exports.deleteEvent = async (req, res) => {
   const eventId = req.params.id;
   try {
     const deletedEvent = await event.findByIdAndDelete(eventId);
+    if(deletedEvent){
+      createNotification(deletedEvent.userId, 'Ceremony', `Your Ceremony "${deletedEvent.title}" has been deleted.` );
+      createNotification(deletedEvent.officiantId, 'Ceremony', `The Ceremony "${deletedEvent.title}" has been deleted from the system.` );
+    }
     if (!deletedEvent) {
       return res.status(404).json({ error: "Event not found" });
     }

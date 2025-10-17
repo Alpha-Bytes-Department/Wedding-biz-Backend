@@ -18,7 +18,7 @@ exports.createNote = async (req, res) => {
     console.log("New note created:", newNote);
 
     await newNote.save();
-    createNotification(to_userId, 'note', `New note from ${from_userName}`);
+    createNotification(to_userId, 'Note', `New note from ${from_userName}`);
     res.status(201).json({ msg: "Note created successfully", newNote });
 
   } catch (err) {
@@ -36,6 +36,7 @@ exports.deleteNote = async (req, res) => {
     if (!deletedNote) {
       return res.status(404).json({ error: "Note not found" });
     }
+    createNotification(deletedNote.to_userId, 'Note', `A note from "${deletedNote.from_userName}" has been deleted.`);
     res.status(200).json({ msg: "Note deleted successfully", deletedNote });
   } catch (err) {
     console.error("Error deleting note:", err);

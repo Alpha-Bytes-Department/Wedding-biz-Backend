@@ -30,6 +30,7 @@ function setupSocket(server) {
     // Handle user coming online
     socket.on("userOnline", ({ userId, userName }) => {
       console.log(`📡 User ${userName} (${userId}) came online`);
+      console.log("🔍 DEBUG - userOnline data received:", { userId, userName });
 
       onlineUsers.set(userId, {
         userName,
@@ -71,6 +72,10 @@ function setupSocket(server) {
     // Handle user going offline
     socket.on("userOffline", ({ userId, userName }) => {
       console.log(`📡 User ${userName} (${userId}) went offline`);
+      console.log("🔍 DEBUG - userOffline data received:", {
+        userId,
+        userName,
+      });
 
       if (onlineUsers.has(userId)) {
         onlineUsers.delete(userId);
@@ -115,6 +120,11 @@ function setupSocket(server) {
 
     // Handle joining a chat room
     socket.on("joinRoom", async ({ roomId, userId, userName }) => {
+      console.log("🔍 DEBUG - joinRoom data received:", {
+        roomId,
+        userId,
+        userName,
+      });
       socket.join(roomId);
 
       // Store user info
@@ -323,6 +333,12 @@ function setupSocket(server) {
 
     // Handle typing indicators
     socket.on("typing", ({ roomId, userId, userName, isTyping }) => {
+      console.log("🔍 DEBUG - typing data received:", {
+        roomId,
+        userId,
+        userName,
+        isTyping,
+      });
       socket.to(roomId).emit("userTyping", {
         userId,
         userName,

@@ -13,14 +13,14 @@ exports.getUserNotifications = async (req, res) => {
     // console.log(`Fetching notifications for user ID: ${tokenUserId}`);
     const notifications = await Notification.find({
       userId: tokenUserId.toString(),
-    }).sort({ createdAt: 1 });
+    }).sort({ createdAt: -1 });
 
     res.status(200).json({ notifications });
   } catch (err) {
     console.error("Error fetching notifications:", err);
     res.status(500).json({ error: err.message });
   }
-};
+}; 
 
 //update for Toggle read status
 exports.toggleReadStatus = async (req, res) => {

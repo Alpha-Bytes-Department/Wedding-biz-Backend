@@ -259,7 +259,7 @@
         socket.on("userTyping", (data) => {
           const indicator = document.getElementById("typingIndicator");
           if (data.isTyping) {
-            indicator.textContent = `${data.userName} is typing...`;
+            indicator.textContent = `${data.userName} is sending...`;
             addTestResult(`Typing indicator received from ${data.userName}`);
           } else {
             indicator.textContent = "";
