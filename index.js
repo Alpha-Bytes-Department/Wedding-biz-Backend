@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Trust proxy - MUST be set before any middleware that depends on client IP
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 // Middleware - Move security middleware to the top
 app.use(
@@ -40,13 +40,13 @@ app.use(
     origin: "*", // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: [
-      "Content-Type", 
-      "Authorization", 
+      "Content-Type",
+      "Authorization",
       "X-Requested-With",
       "Accept",
       "Origin",
       "Cache-Control",
-      "X-Forwarded-For"
+      "X-Forwarded-For",
     ],
     credentials: false, // Set to false when origin is "*"
     optionsSuccessStatus: 200,
@@ -218,6 +218,53 @@ app.use("/api/chat", chatRoutes);
 // =============PaymentFunctionality================
 // Add your payment routes here
 
+// Error handling middleware for multer errors (must be after routes)
+app.use((error, req, res, next) => {
+  if (error.code === "LIMIT_FILE_SIZE") {
+    return res.status(413).json({
+      success: false,
+      message: "File size too large. Maximum allowed size is 2MB.",
+      error: "FILE_TOO_LARGE",
+    });
+  }
+
+  if (error.code === "LIMIT_FILE_COUNT") {
+    return res.status(400).json({
+      success: false,
+      message: "Too many files. Maximum allowed is 1 file.",
+      error: "TOO_MANY_FILES",
+    });
+  }
+
+  if (error.code === "LIMIT_UNEXPECTED_FILE") {
+    return res.status(400).json({
+      success: false,
+      message: "Unexpected field name for file upload.",
+      error: "UNEXPECTED_FIELD",
+    });
+  }
+
+  if (error.message && error.message.includes("File type")) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+      error: "INVALID_FILE_TYPE",
+    });
+  }
+
+  // For other multer errors
+  if (error.name === "MulterError") {
+    return res.status(400).json({
+      success: false,
+      message: "File upload error: " + error.message,
+      error: "UPLOAD_ERROR",
+    });
+  }
+
+  // Pass other errors to default error handler
+  next(error);
+});
+
 // API health check
 app.get("/api/health", (req, res) => {
   res.json({
@@ -312,7 +359,9 @@ server.listen(PORT, () => {
     }`
   );
   console.log(`💬 Chat functionality: Enabled`);
-  console.log(`📁 File upload: Enabled (Max: 50MB)`);
+  console.log(
+    `📁 File upload: Enabled (Max: 2MB for profile pictures, 50MB for chat files)`
+  );
 });
 
 // Graceful shutdown

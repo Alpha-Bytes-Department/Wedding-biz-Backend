@@ -9,7 +9,32 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
- 
-const upload = multer({ storage });
+
+// File filter for security and file type validation
+const fileFilter = (req, file, cb) => {
+  // Define allowed file types for profile pictures
+  const allowedImageTypes = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+  const fileExtension = path.extname(file.originalname).toLowerCase();
+
+  if (allowedImageTypes.includes(fileExtension)) {
+    cb(null, true);
+  } else {
+    cb(
+      new Error(
+        `File type ${fileExtension} is not allowed. Only images are allowed.`
+      ),
+      false
+    );
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 2 * 1024 * 1024, // 2MB limit
+    files: 1, // Maximum 1 file for profile picture
+  },
+});
 
 module.exports = upload;
