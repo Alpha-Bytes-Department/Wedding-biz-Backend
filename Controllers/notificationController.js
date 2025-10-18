@@ -20,7 +20,7 @@ exports.getUserNotifications = async (req, res) => {
     console.error("Error fetching notifications:", err);
     res.status(500).json({ error: err.message });
   }
-};
+}; 
 
 //update for Toggle read status
 exports.toggleReadStatus = async (req, res) => {
@@ -60,6 +60,7 @@ exports.createNotificationManual = async (req, res) => {
 exports.createNotification = async (userId, type, customMessage ) => {
   try {
     const message = customMessage;
+    console.log("Creating notification with message:", message);
     if (!message) {
       console.log("No custom message provided");
       return null;
