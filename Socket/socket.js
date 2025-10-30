@@ -4,6 +4,8 @@ const path = require("path");
 const fs = require("fs").promises;
 const mongoose = require("mongoose");
 const { ChatMessage, ChatRoom } = require("../Models/ChatSchema");
+const User = require("../Models/UserCredential");
+const EmailService = require("../Services/EmailService");
 
 function setupSocket(server) {
   const io = new Server(server, {
@@ -23,6 +25,88 @@ function setupSocket(server) {
   const activeUsers = new Map();
   const roomUsers = new Map();
   const onlineUsers = new Map(); // Track online status by userId
+
+  // Helper function to get offline recipients and send email notifications
+  const sendOfflineNotifications = async (
+    roomId,
+    sender,
+    senderName,
+    content,
+    messageType = "text"
+  ) => {
+    try {
+      console.log(
+        `🔍 DEBUG: Checking offline notifications for room ${roomId}, sender: ${senderName} (${sender})`
+      );
+      console.log(
+        `🔍 DEBUG: Current online users:`,
+        Array.from(onlineUsers.keys())
+      );
+
+      // Get all participants in the room from database
+      const room = await ChatRoom.findOne({ roomId }).populate(
+        "participants.userId",
+        "email role name partner_1 partner_2"
+      );
+
+      if (!room || !room.participants) {
+        console.log(`❌ No room participants found for ${roomId}`);
+        return;
+      }
+
+      console.log(
+        `🔍 DEBUG: Room participants:`,
+        room.participants.map((p) => ({
+          userId: p.userId._id.toString(),
+          email: p.userId.email,
+          name: p.userId.name || p.userId.partner_1,
+        }))
+      );
+
+      // Get sender's role to determine notification context
+      const senderUser = await User.findById(sender).select("role");
+      const senderRole = senderUser ? senderUser.role : "user";
+
+      console.log(`🔍 DEBUG: Sender role: ${senderRole}`);
+
+      // Find offline recipients (participants who are not currently online)
+      const offlineRecipients = room.participants.filter((participant) => {
+        const userId = participant.userId._id.toString();
+        const isOffline = userId !== sender && !onlineUsers.has(userId);
+        console.log(
+          `🔍 DEBUG: User ${userId} is ${isOffline ? "OFFLINE" : "ONLINE"}`
+        );
+        return isOffline;
+      });
+
+      console.log(
+        `📧 Found ${offlineRecipients.length} offline recipients for room ${roomId}`
+      );
+
+      // Send email notification to each offline recipient
+      for (const recipient of offlineRecipients) {
+        const recipientId = recipient.userId._id.toString();
+
+        console.log(
+          `📧 Sending email to ${recipient.userId.email} for message from ${senderName}`
+        );
+
+        const emailResult = await EmailService.sendOfflineMessageNotification({
+          recipientId,
+          senderName,
+          senderRole,
+          messageContent: content,
+          roomId,
+        });
+
+        console.log(
+          `📧 Email sent result: ${emailResult ? "SUCCESS" : "FAILED"}`
+        );
+      }
+    } catch (error) {
+      console.error("❌ Error sending offline notifications:", error);
+    }
+  };
 
   io.on("connection", (socket) => {
     console.log("✅ Client connected:", socket.id);
@@ -309,6 +393,15 @@ function setupSocket(server) {
           messageId: chatMessage.messageId,
           createdAt: chatMessage.createdAt,
         });
+
+        // Send offline email notifications for any recipients not currently online
+        await sendOfflineNotifications(
+          roomId,
+          sender,
+          senderName,
+          content,
+          type
+        );
 
         // Log message for debugging
         console.log(
