@@ -1,0 +1,386 @@
+[
+  {
+    "_id": {
+      "$oid": "68ed48ba4b0452919639d465"
+    },
+    "name": "Steve",
+    "email": "steve@erieweddingofficiants.com",
+    "password": "$2b$10$rwYApt1qI21Qafapdx3p5uiXh3vMgn.TfdiTB7hi.nNvydWyt3ngW",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Steve has been serving as a wedding officiant since 2012, helping couples embark on their marital journeys. Over the past decade, he has had the privilege of officiating more than 400 weddings, each one a unique reflection of the love and commitment shared by two individuals. From intimate elopements to grand celebrations, his experience allows him to craft ceremonies that are meaningful, personal, and truly unforgettable. It's a joy to be a part of such a significant moment in people's lives, and Steve looks forward to continuing to create cherished memories for many years to come.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Personalized and Traditional Wedding Ceremonies",
+    "isVerified": true,
+    "createdAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "profilePicture": "Steve.jpg",
+    "allowDownoad": false,
+    "bookingMoney": 0,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWQ0OGJhNGIwNDUyOTE5NjM5ZDQ2NSIsInJvbGUiOiJvZmZpY2lhbnQiLCJpYXQiOjE3NjA4MTc4NzEsImV4cCI6MTc2MTQyMjY3MX0.l2Jh0viijO7iXEkOxGfgbQGbInT9uI21m7hSGGSlSmg"
+  },
+  {
+    "_id": {
+      "$oid": "68ed48ba4b0452919639d466"
+    },
+    "name": "Tracey",
+    "email": "traceymmerlino@gmail.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Tracey is a dedicated wedding officiant with a passion for crafting personalized and memorable ceremonies. For many years, she has brought warmth and sincerity to countless weddings, guiding couples through one of the most significant moments of their lives. With a commitment to reflecting each couple's unique story, she specializes in creating ceremonies that are both heartfelt and truly unforgettable. Whether it's an intimate gathering or a large celebration, Tracey ensures every detail resonates with love and joy, making each wedding a cherished memory.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Heartfelt and Customized Ceremonies",
+    "isVerified": true,
+    "createdAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "profilePicture": "Tracey.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "68ed48ba4b0452919639d467"
+    },
+    "name": "Julie",
+    "email": "juliemskelly@gmail.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Julie is a passionate new officiant dedicated to crafting personalized and heartfelt wedding ceremonies. She loves collaborating with couples to weave their unique stories into every vow and moment. Expect a warm, engaging presence and a ceremony that truly reflects your love, becoming a cherished memory for years to come. Julie is committed to helping you create an unforgettable experience, focusing on genuine connections and joyful celebration as you begin your journey together.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Personalized Wedding Ceremonies",
+    "isVerified": true,
+    "createdAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "profilePicture": "Julie.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "68ed48ba4b0452919639d468"
+    },
+    "name": "Matt",
+    "email": "matthewmhammond@gmail.com",
+    "password": "123456asd",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Matt brings a fresh perspective and a heartfelt desire to craft ceremonies that are as unique as the couples he serves. Matt believes in creating a relaxed and joyful atmosphere, ensuring you and your guests feel comfortable and engaged throughout the ceremony. Matt is dedicated to clear communication and meticulous planning, working closely with you to ensure every detail, from the vows to the readings, reflects your vision perfectly. He's excited to help you create lasting memories.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Relaxed and Joyful Ceremonies",
+    "isVerified": true,
+    "createdAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "profilePicture": "Matt.png"
+  },
+  {
+    "_id": {
+      "$oid": "68ed48ba4b0452919639d469"
+    },
+    "name": "Laurie",
+    "email": "lauriehitt@gmail.com",
+    "password": "$2b$10$hGhPoxv.GcBdcH1vfrBDeOdK0N8CCGIrN72oNK/kDq9G3nCCzJeHy",
+    "role": "officiant",
+    "languages": ["English", "Spanish"],
+    "bio": "Laurie is an enthusiastic officiant committed to designing personalized and meaningful wedding ceremonies. She loves connecting with couples and tailoring every detail to reflect their unique love story, ensuring a truly unforgettable experience. Laurie's warm approach helps couples feel at ease, allowing their authentic connection to shine through. She's dedicated to making your ceremony a cherished highlight of your wedding.",
+    "bookingPackage": [
+      {
+        "id": "pkg1",
+        "name": "Vow Renewal",
+        "price": 250,
+        "description": "Stock ceremony for Vow Renewal",
+        "features": ["Contact for hours", "Stock ceremony for Vow Renewal"]
+      },
+      {
+        "id": "pkg2",
+        "name": "Stock Wedding Ceremony",
+        "price": 300,
+        "description": "Stock wedding ceremony (no customization)",
+        "features": [
+          "Contact for hours",
+          "Stock wedding ceremony (no customization)"
+        ]
+      },
+      {
+        "id": "pkg3",
+        "name": "Custom Wedding Ceremony",
+        "price": 400,
+        "description": "Personalized Wedding Ceremony",
+        "features": ["Contact for hours", "Personalized Wedding Ceremony"]
+      }
+    ],
+    "specialization": "Personalized and Meaningful Ceremonies",
+    "isVerified": true,
+    "createdAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T00:00:00.000Z"
+    },
+    "profilePicture": "Laurie.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "68ed8c78c2691f3073594604"
+    },
+    "email": "joysutradharaj@gmail.com",
+    "password": "$2b$10$PoVcY8XMK1BB7HGm/x6BiuK2vFCfU3bTvir69exPVFTiqZcrURhvW",
+    "role": "officiant",
+    "languages": [],
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocK5eCvfuI0fjx9Lx8zGQrY4FO-BAXJQfnX2V3Ci2AkH4Dk-PYgx=s96-c",
+    "name": "Joy Sutradhar",
+    "bookingMoney": 250,
+    "allowDownoad": false,
+    "isVerified": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWQ4Yzc4YzI2OTFmMzA3MzU5NDYwNCIsInJvbGUiOiJvZmZpY2lhbnQiLCJpYXQiOjE3NjA4MjEyMDEsImV4cCI6MTc2MTQyNjAwMX0.j8A9Qn90uk_NgHIndIFmvrVFXSXc9Z0PYjX3_szJISU",
+    "bookingPackage": [],
+    "createdAt": {
+      "$date": "2025-10-13T23:34:16.132Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-17T00:36:38.337Z"
+    },
+    "__v": 0,
+    "bio": "I am a skill full officiant .Expect a warm, engaging presence and a ceremony that truly reflects your love, becoming a cherished memory for years to come. Julie is committed to helping you create an unforgettable experience, focusing on genuine connections and joyful celebration as you begin your journey together."
+  },
+  {
+    "_id": {
+      "$oid": "68ed97d6c2691f30735946fa"
+    },
+    "partner_1": " Julias seaser",
+    "partner_2": "anjali mitra",
+    "email": "anjulooki@gmail.com",
+    "password": "$2b$10$gikQHBJ1tK8uhT7Ff4DZv.pchoyJJpGbC.4uFis4jSHVPsTY1w.ay",
+    "role": "user",
+    "languages": [],
+    "profilePicture": "https://erieweddingofficiants.com/uploads/1760813461473.png",
+    "name": "anjali mitra",
+    "bookingMoney": 0,
+    "allowDownoad": false,
+    "isVerified": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWQ5N2Q2YzI2OTFmMzA3MzU5NDZmYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYwODEzMjI4LCJleHAiOjE3NjE0MTgwMjh9.xqEK8wdtOh-gW5QWXD82PuPUAbLu3j7MKlqnK66_2tI",
+    "bookingPackage": [],
+    "createdAt": {
+      "$date": "2025-10-14T00:22:46.515Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-18T18:51:01.474Z"
+    },
+    "__v": 0,
+    "phone": "(555) 555-5555"
+  },
+  {
+    "_id": {
+      "$oid": "68ee4319bcbf24b19d68cda1"
+    },
+    "partner_1": " ",
+    "partner_2": "Steven Ferringer",
+    "email": "info@erieweddingofficiants.com",
+    "password": "$2b$10$jMZuFZngv0h1ix4weLq1Q.TitMAMs4VNB7VRVxNLRLzwzAiNj8XdC",
+    "role": "user",
+    "languages": [],
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXOuGlY7EwWQnxswaKM3aml8xSCpv9FyHCWYEDl4UFaCmhzhuFbUsswJFjWjXztGSflhbV5JTG1Xd4q4mDMWXjldjYDMNplWdHsSO48MI-XfAWJC5ff-5PaDdsgdwOhy8O47-_0fP-9OCd2UQAhgyKYeSGg7QKdjqx0rbqrUuHupJYHHY8nKvAF6FUj7kZQ5lnV396-9RUELsB6_MAkJ4mysjSiRUjUFW9obpL3eXmi8ItqcIGhayMLgl5wS9R28mDxG0_0UWUfI8zjgbN5p9uXdTHN76jD-aPPACcdQ7RdlQ8VH_ypr1urSje27Ja0SxI5ONqgvNLdE4NiNATCLYMgtQVYpkbDIE2QCadj0zq0yOBw4YbnHH8rwqLr3AtIAPzGRPGbxGGG_q9X42X8nBLpNvTDTxIYs7pUPI4bBcgLGTVgfzpQdPpJmwEeEfiPMPOFYpSudE69PcwEkKvqhGwVLmZmmSghFprm2gCRViZtfb-5hHThkPktj-KXH6E35Xo62NPL3rg8FRNigGTnzePfVdSD5u8A6K3uYA4e4sP630O04EBG8GvdEfdUuXJc8l0Skpe0jhbVbhzb_RSdbK014L32zeACihfHg4MhtqeLDZNz0lzXceQaIW5YncIk7q7DZug2q8EfH-x0iqGIsAWnA0xU8w_5iEpMAbO4oFGElgjigB_JrtKYkD53D3hJtlMOnh-fvHwn6fdmqgOmHXB0CVU6Myvnaigt7CcJoctKKVfeuWnIOBimjwtfNOOmQ6EH8G9qRIdJ4mzXvLjt4_6bLjc-wfFNJBKy3_ea7anNBKl90k8W4WmtH9mFN14g1aeWgdkCs_dlx3QCimlGTxwhlm_wt043GK8-VQi607aiv9Fjsg8BNJ1mzPjD9BH-fp3yT9QNTtrlbSlEtiVTz7biz8ca02AWqa_MCn-wLDCYJODdqQX4JjwWKvSMkBqjYBA3C6dl75Q3ovMylGm7fEQVlHzYZL05xFb1D8zwapXtng=s96-c",
+    "name": "Steven Ferringer",
+    "bookingMoney": 0,
+    "allowDownoad": false,
+    "isVerified": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWU0MzE5YmNiZjI0YjE5ZDY4Y2RhMSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYwNDc3MDg3LCJleHAiOjE3NjEwODE4ODd9.rxy0XFpOPDp-ume2NQrRkd6JT5g6ODH05Tafetda_DI",
+    "bookingPackage": [],
+    "createdAt": {
+      "$date": "2025-10-14T12:33:29.966Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T12:33:29.966Z"
+    },
+    "__v": 0
+  },  
+  {
+    "_id": {
+      "$oid": "68ee9537bcbf24b19d68ce50"
+    },
+    "partner_1": " ",
+    "partner_2": "Efti Hossain",
+    "email": "eftih31@gmail.com",
+    "password": "$2b$10$DJoB.3bBlHSLzcy9pGmur.7IdwMqhO7GQtlSp3PM0QioIdd7vrQiK",
+    "role": "user",
+    "languages": [],
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJN962F7SmONaoJsL4QaPz9C8v9JuX8nJCQ3ZfSJoGYOh2gGA=s96-c",
+    "name": "Efti Hossain",
+    "bookingMoney": 0,
+    "allowDownoad": false,
+    "isVerified": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWU5NTM3YmNiZjI0YjE5ZDY4Y2U1MCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYwNDY2ODQ3LCJleHAiOjE3NjEwNzE2NDd9.OY9saIzx5QBdHsRyWOJq5GoZhgSf_dlwTJusLwhN2hE",
+    "bookingPackage": [],
+    "createdAt": {
+      "$date": "2025-10-14T18:23:51.001Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T18:23:51.001Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68eeb997bcbf24b19d68cec1"
+    },
+    "partner_1": " ",
+    "partner_2": "Steven Ferringer",
+    "email": "steveferringer@gmail.com",
+    "password": "$2b$10$f7ZEK/TRjyrwLMnKheq1seNE7f23a.EL3rYtja98xSmWjw6rwyT2m",
+    "role": "user",
+    "languages": [],
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXeRBQd5bbQmPj0qbEBtfgKe4coyLyJ2Ilz7arJ3FLnvFeKqN89HXqYojN2n5T0URaxSqU9lreLO2BFgpNQ9lnbwFj-4wlLICc1skuR9VxtmXODV0M0UoQcG4NZ-cqCZdJ1qCULZs-RIkDpFzl0ldw2V8x87JSoeyWJ2koLsCc3mPS1ivf7OEQPYkdQbkhkjMK9Ax5AMmorEDD6dQ7wBKLq-mC_sFiIE09hFaYUh0tw9tDfZSV0BKtB4gHKlqzz5_Q8tez_0-ZtGXdLL53luynK6hiwelK79LfAgkIPI-tmq6eN5K9aalHu0djL9VOIyiRitHHS5R2uar2wTNSPxn_KFoxpf5X6j6c2QIrqbjr70DC7cuOGhHJYmyH4BuGC7w8z5geO1PMMPFuc5gkB-RO7edykGTWxnsBK2wHNNyeLKHygtmyW6ksylo3NLtc9fTtQrOFtKnE6zUCYkL0fY9isXfbSx980nHPNiFMcWIgBAVK4alQGio8lsLV2qtYlZslPp5om1YcHgej4CPEtyf7r3-xyR6d-2uVW3AYF_w4zvGr01Bw7ongjx29roj5G8TGX1XKatVBRaWa3zfZ4K7LbyY1_fC_ONf0M8g4YPvfZKoXv-2Hx03B0U-lwyl9yTQRsL5Gg5kNQoYvp2op6od7MtZICmsKrftM9QlyhZtYIhCM1UgolB4BAOyy2es_YFKG7QJGjEqiGKiS97quoHJThIPLuxG2DrXz-ikHpTTwSPDIdSjwShafGj_ikgobQUpPIY1OFCnh2CXUZDsJYldu29LjiS-1zmvq4iyy7ExNy_3FaVlQdHKnmz_t_SxSXztPuNsC3Fqcc92kqnJaPnteQ2jCpf9NYHJEaT7l2i3C6bb-S_TyZBVkzS2R_jBrRPC3-plowwxbibvmO-jkbPVLd6EyJRr0RTi_BwAc8sTEY2foC0BF2UfjAPUSoGkD1kE-C5HHjpHsl0pZuDff4O_BOjA4KeeJUYe31Tke_uFtxq6BKudo=s96-c",
+    "name": "Steven Ferringer",
+    "bookingMoney": 0,
+    "allowDownoad": false,
+    "isVerified": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWViOTk3YmNiZjI0YjE5ZDY4Y2VjMSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYwODE3NjYwLCJleHAiOjE3NjE0MjI0NjB9.8KLNSbmyywTYgRNZnniCpAQLp6bq0C5-HZzrAcg1uKE",
+    "bookingPackage": [],
+    "createdAt": {
+      "$date": "2025-10-14T20:59:03.461Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-14T20:59:03.461Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "68eed539bcbf24b19d68d5ff"
+    },
+    "partner_1": " Alpha Bytes",
+    "partner_2": "Alpha Bytes",
+    "email": "alphabytes.gpt@gmail.com",
+    "password": "$2b$10$e7549P9RvRBIDx6eQMwZnOv50lE.7ynk51Sb75qDx3GCuqCl7fcr.",
+    "role": "user",
+    "languages": [],
+    "profilePicture": "https://erieweddingofficiants.com/uploads/1760818037527.png",
+    "name": "Alpha Bytes",
+    "bookingMoney": 0,
+    "allowDownoad": false,
+    "isVerified": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZWVkNTM5YmNiZjI0YjE5ZDY4ZDVmZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzYwODIwOTYxLCJleHAiOjE3NjE0MjU3NjF9.KZNjC-A0ZpyyRNXJWNWifNsMTdpcq4XwuHTwAQHnZsQ",
+    "bookingPackage": [],
+    "createdAt": {
+      "$date": "2025-10-14T22:56:57.037Z"
+    },
+    "updatedAt": {
+      "$date": "2025-10-18T20:07:17.529Z"
+    },
+    "__v": 0
+  }
+  
+]

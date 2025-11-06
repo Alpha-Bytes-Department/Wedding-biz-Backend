@@ -192,12 +192,16 @@ const notificationRoute = require("./Routes/notificationRoute");
 const scheduleRoute = require("./Routes/scheduleRoute");
 const marketingOthersRoute = require("./Routes/marketing_othersRoute");
 const billRoute = require("./Routes/BillRoute");
+const applicantRoutes = require("./Routes/ApplicationRoute");
+const testEmailRoute = require("./Routes/testEmailRoute");
 
 // Import chat routes
 const chatRoutes = require("./Routes/chatRoutes");
 
 // ==========User routes=================
 app.use("/api/users", userRoutes);
+// ==========Applicant routes============
+app.use("/api/applicants", applicantRoutes);
 // ==========Note routes=================
 app.use("/api/notes", noteRoutes);
 // ==========Event routes================
@@ -214,6 +218,8 @@ app.use("/api/marketing", marketingOthersRoute);
 app.use("/api/bills", billRoute);
 // ==========Chat routes=================
 app.use("/api/chat", chatRoutes);
+// ==========Test Email routes===========
+app.use("/api/test-email", testEmailRoute);
 
 // =============PaymentFunctionality================
 // Add your payment routes here
