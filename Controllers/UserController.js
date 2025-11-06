@@ -451,7 +451,7 @@ exports.updateUser = async (req, res) => {
       "bookingMoney",
       "location",
       "weddingDate",
-      "allowDownoad",
+      "allowDownload",
     ];
 
     allowedFields.forEach((field) => {
@@ -532,6 +532,47 @@ exports.deleteUser = async (req, res) => {
     }
 
     res.status(200).json({ msg: "User deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//====================== toggle users detail from admin panel =======================
+exports.changeUserInfo = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updateFields = req.body;
+    console.log("Updating user ID:", userId, "with fields:", updateFields);
+    // const founduser= await User.findById(userId);
+    
+ const updatedUser = await User.findByIdAndUpdate(userId, updateFields, {
+   new: true,
+   select: "-password -refreshToken",
+ });
+    if (!updatedUser) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    res.json({ msg: `User found successfully ${updatedUser.name} with id ${updatedUser._id} with parameter id ${userId}`, user: updatedUser });
+  } catch (err) {
+    console.error("Error updating user:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.deleteAnyUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findByIdAndDelete(userId).select(
+      "-password -refreshToken"
+    );
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    res.json({ msg: "User deleted successfully", user });
   } catch (err) {
     console.error("Error deleting user:", err);
     res.status(500).json({ error: err.message });

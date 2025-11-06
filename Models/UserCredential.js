@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
     description: String,
     features: [String],
   }],
+  experience: { type: Number, default: 0 },
   bookingMoney: { type: Number, default: 0 },
   bio: String,
   allowDownoad: { type: Boolean, default: false },

@@ -130,12 +130,14 @@ const createApplication = async (req, res) => {
 const updateApplicationStatus = async (req, res) => {
   const applicationId = req.params.id; // Route uses /:id
   const { status, userId } = req.body;
+  const applicantUser = await applicant.findById(applicationId);
 
   try {
     if (status === "approved") {
-      await user.findByIdAndUpdate(userId, { role: "officiant" });
 
-      // Create notification for approval
+      await user.findByIdAndUpdate(userId, { role: "officiant", experience: applicantUser.experience });
+
+      
       createNotification(
         userId,
         "Application Approved",
