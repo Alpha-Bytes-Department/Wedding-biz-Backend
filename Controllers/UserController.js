@@ -466,7 +466,7 @@ exports.updateUser = async (req, res) => {
 
     // Handle profile picture upload and set full URL
     if (req.file && req.file.filename) {
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = `https://erieweddingofficiants.com`;
       updateFields.profilePicture = `${baseUrl}/uploads/${req.file.filename}`;
     }
 
