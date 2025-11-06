@@ -29,7 +29,13 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ msg: "Email already exists" });
     }
 
-    user = new User({ partner_1, partner_2, email, password ,name:partner_1 || partner_2});
+    user = new User({
+      partner_1,
+      partner_2,
+      email,
+      password,
+      name: partner_1 || partner_2,
+    });
     await user.save();
     console.log("User saved to database:", user._id);
 
@@ -270,15 +276,58 @@ exports.getUser = async (req, res) => {
   }
 };
 
-// Get All Users (Admin only)
+// Get All Users (Admin only) with optional pagination, search and role/status filters
 exports.getAllUsers = async (req, res) => {
   // if (req.user.role !== "admin") {
   //   return res.status(403).json({ msg: "Access denied" });
   // }
   try {
-    const users = await User.find().select("-password -refreshToken");
-    res.json({ users });
+    // Query params
+    const page = Math.max(parseInt(req.query.page) || 1, 1);
+    const limit = Math.max(parseInt(req.query.limit) || 0, 0); // 0 means no limit
+    const search = req.query.search ? String(req.query.search).trim() : null;
+    const role = req.query.role ? String(req.query.role).trim() : null; // 'user' | 'officiant'
+    const status = req.query.status ? String(req.query.status).trim() : null; // 'verified'|'unverified'
+
+    // Build Mongo query
+    const query = {};
+    if (role) query.role = role;
+    if (status === "verified") query.isVerified = true;
+    if (status === "unverified") query.isVerified = false;
+
+    if (search) {
+      const regex = new RegExp(search, "i");
+      query.$or = [
+        { name: { $regex: regex } },
+        { email: { $regex: regex } },
+        { partner_1: { $regex: regex } },
+        { partner_2: { $regex: regex } },
+      ];
+    }
+
+    const totalItems = await User.countDocuments(query);
+
+    let usersQuery = User.find(query)
+      .select("-password -refreshToken")
+      .sort({ createdAt: -1 });
+
+    if (limit > 0) {
+      const skip = (page - 1) * limit;
+      usersQuery = usersQuery.skip(skip).limit(limit);
+    }
+
+    const users = await usersQuery.exec();
+
+    const totalPages = limit > 0 ? Math.ceil(totalItems / limit) : 1;
+
+    res.json({
+      users,
+      currentPage: page,
+      totalPages,
+      totalItems,
+    });
   } catch (err) {
+    console.error("Error in getAllUsers:", err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -545,16 +594,19 @@ exports.changeUserInfo = async (req, res) => {
     const updateFields = req.body;
     console.log("Updating user ID:", userId, "with fields:", updateFields);
     // const founduser= await User.findById(userId);
-    
- const updatedUser = await User.findByIdAndUpdate(userId, updateFields, {
-   new: true,
-   select: "-password -refreshToken",
- });
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateFields, {
+      new: true,
+      select: "-password -refreshToken",
+    });
     if (!updatedUser) {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    res.json({ msg: `User found successfully ${updatedUser.name} with id ${updatedUser._id} with parameter id ${userId}`, user: updatedUser });
+    res.json({
+      msg: `User found successfully ${updatedUser.name} with id ${updatedUser._id} with parameter id ${userId}`,
+      user: updatedUser,
+    });
   } catch (err) {
     console.error("Error updating user:", err);
     res.status(500).json({ error: err.message });
