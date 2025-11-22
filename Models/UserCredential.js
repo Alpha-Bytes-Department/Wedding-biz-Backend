@@ -1,28 +1,34 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const { all } = require("../Routes/userRoute");
+// const { all } = require("../Routes/userRoute");
 
 const userSchema = new mongoose.Schema({
-  partner_1: { type: String, required: false },
-  partner_2: { type: String, required: false },
+  partner_1:String,
+  partner_2: String,
   email: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true, minlength: 6 },
   role: { type: String, enum: ["user", "admin", "officiant"], default: "user" },
   address: String,
   phone: String,
+  contact: {
+    partner_1: String,
+    partner_2: String,
+  },
   weddingDate: Date,
   location: String,
   languages: [String],
   profilePicture: String,
   name: String,
   specialization: String,
-  bookingPackage: [{
-    id: String,
-    name: String,
-    price: Number,
-    description: String,
-    features: [String],
-  }],
+  bookingPackage: [
+    {
+      id: String,
+      name: String,
+      price: Number,
+      description: String,
+      features: [String],
+    },
+  ],
   experience: { type: Number, default: 0 },
   bookingMoney: { type: Number, default: 0 },
   bio: String,

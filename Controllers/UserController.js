@@ -8,7 +8,7 @@ const EMAIL_SECRET = process.env.EMAIL_SECRET;
 const createTokens = (userId, role) => {
   console.log("Creating tokens for userId:", userId, "with role:", role);
   const accessToken = jwt.sign({ id: userId, role }, process.env.JWT_SECRET, {
-    expiresIn: "60m",
+    expiresIn: "120m",
   });
   const refreshToken = jwt.sign(
     { id: userId, role },
@@ -34,7 +34,7 @@ exports.registerUser = async (req, res) => {
       partner_2,
       email,
       password,
-      name: partner_1 || partner_2,
+      name:partner_2? partner_1 + " & " + partner_2 : partner_1,
     });
     await user.save();
     console.log("User saved to database:", user._id);
