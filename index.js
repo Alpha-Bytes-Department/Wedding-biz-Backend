@@ -37,7 +37,7 @@ app.use(compression());
 // CORS configuration - Allow all origins (completely open)
 app.use(
   cors({
-    origin: "*", // Allow all origins
+    origin: ["*", "https://www.erieweddingofficiants.com", "https://erieweddingofficiants.com"], // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: [
       "Content-Type",
