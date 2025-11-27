@@ -16,9 +16,11 @@ const userSchema = new mongoose.Schema({
   },
   weddingDate: Date,
   location: String,
+  
   languages: [String],
   profilePicture: String,
   name: String,
+  AgreementAccepted: { type: Boolean, default: false },
   specialization: String,
   bookingPackage: [
     {
@@ -32,7 +34,8 @@ const userSchema = new mongoose.Schema({
   experience: { type: Number, default: 0 },
   bookingMoney: { type: Number, default: 0 },
   bio: String,
-  allowDownoad: { type: Boolean, default: false },
+  availability: { type: Boolean, default: true },
+  allowDownload: { type: Boolean, default: false },
   isVerified: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

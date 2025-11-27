@@ -18,14 +18,14 @@ app.set("trust proxy", 1);
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow cross-origin resource loading
+    crossOriginResourcePolicy: { policy: "cross-origin" }, 
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        connectSrc: ["'self'", "wss:", "ws:", "https:", "http:"], // Allow WebSocket connections
+        connectSrc: ["'self'", "wss:", "ws:", "https:", "http:"], 
         styleSrc: ["'self'", "'unsafe-inline'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "https:", "http:"], // Allow http images
+        imgSrc: ["'self'", "data:", "https:", "http:"], 
       },
     },
   })

@@ -34,7 +34,7 @@ exports.registerUser = async (req, res) => {
       partner_2,
       email,
       password,
-      name:partner_2? partner_1 + " & " + partner_2 : partner_1,
+      name: partner_2 ? partner_1 + " & " + partner_2 : partner_1,
     });
     await user.save();
     console.log("User saved to database:", user._id);
@@ -497,10 +497,12 @@ exports.updateUser = async (req, res) => {
       "partner_2",
       "phone",
       "bio",
+      "name",
+      "contact",
       "bookingMoney",
       "location",
       "weddingDate",
-      "allowDownload",
+      "availability",
     ];
 
     allowedFields.forEach((field) => {
@@ -592,6 +594,7 @@ exports.changeUserInfo = async (req, res) => {
   try {
     const userId = req.params.id;
     const updateFields = req.body;
+
     console.log("Updating user ID:", userId, "with fields:", updateFields);
     // const founduser= await User.findById(userId);
 
