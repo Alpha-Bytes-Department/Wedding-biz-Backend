@@ -24,9 +24,14 @@ const AgreementSchema = new mongoose.Schema({
       "payment_completed",
       "officiant_signed",
       "completed",
+      "used",
     ],
     default: "pending",
   },
+
+  // Track if agreement was used for ceremony submission
+  isUsedForCeremony: { type: Boolean, default: false },
+  ceremonySubmittedAt: { type: Date, required: false },
 
   // Signatures (image URLs)
   partner1Signature: { type: String, required: false },

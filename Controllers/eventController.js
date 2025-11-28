@@ -30,9 +30,31 @@ exports.createEvent = async (req, res) => {
     });
     const savedEvent = await newEvent.save();
 
-    // If ceremony is submitted, reset AgreementAccepted to false
+    // If ceremony is submitted, reset AgreementAccepted to false and mark agreement as used
     if (savedEvent.status === "submitted") {
+      console.log("Ceremony submitted, updating user and agreement...");
+      console.log("UserId:", userId, "OfficiantId:", officiantId);
+
       await User.findByIdAndUpdate(userId, { AgreementAccepted: false });
+
+      // Mark the agreement as used for ceremony
+      if (userId) {
+        const agreementUpdate = await Agreement.findOneAndUpdate(
+          { userId },
+          {
+            isUsedForCeremony: true,
+            ceremonySubmittedAt: new Date(),
+            status: "used",
+          },
+          { new: true }
+        );
+        console.log(
+          "Agreement updated:",
+          agreementUpdate ? "Success" : "Not found"
+        );
+      } else {
+        console.log("No officiantId provided, skipping agreement update");
+      }
 
       createNotification(
         savedEvent.officiantId,
@@ -103,9 +125,41 @@ exports.updateEvent = async (req, res) => {
       updatedEvent.status === "submitted" &&
       existingEvent.status !== "submitted"
     ) {
+      console.log(
+        "Ceremony updated to submitted, updating user and agreement..."
+      );
+      console.log(
+        "UserId:",
+        updatedEvent.userId,
+        "OfficiantId:",
+        updatedEvent.officiantId
+      );
+
       await User.findByIdAndUpdate(updatedEvent.userId, {
         AgreementAccepted: false,
       });
+
+      // Mark the agreement as used for ceremony
+      if (updatedEvent.officiantId) {
+        const agreementUpdate = await Agreement.findOneAndUpdate(
+          {
+            userId: updatedEvent.userId,
+            officiantId: updatedEvent.officiantId,
+          },
+          {
+            isUsedForCeremony: true,
+            ceremonySubmittedAt: new Date(),
+            status: "used",
+          },
+          { new: true }
+        );
+        console.log(
+          "Agreement updated:",
+          agreementUpdate ? "Success" : "Not found"
+        );
+      } else {
+        console.log("No officiantId in ceremony, skipping agreement update");
+      }
 
       createNotification(
         updatedEvent.officiantId,
