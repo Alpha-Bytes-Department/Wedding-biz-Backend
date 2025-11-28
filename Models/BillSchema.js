@@ -9,7 +9,9 @@ const BillSchema = new mongoose.Schema({
   officiantName: { type: String, required: true },
   officiantId: { type: String, required: true },
   cost: { type: Number, required: true },
-  eventId: { type: String, required: true },
+  travelFee: { type: Number, required: false, default: 0 },
+  eventId: { type: String, required: false }, // Legacy field for event-based bookings
+  agreementId: { type: String, required: false }, // New field for agreement-based payments
   amount: { type: Number, required: true },
   status: { type: String, enum: ["paid", "unpaid"], default: "unpaid" },
   issuedAt: { type: Date, default: Date.now },

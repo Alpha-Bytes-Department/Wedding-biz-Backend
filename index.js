@@ -18,14 +18,14 @@ app.set("trust proxy", 1);
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: { policy: "cross-origin" }, 
+    crossOriginResourcePolicy: { policy: "cross-origin" },
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        connectSrc: ["'self'", "wss:", "ws:", "https:", "http:"], 
+        connectSrc: ["'self'", "wss:", "ws:", "https:", "http:"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "https:", "http:"], 
+        imgSrc: ["'self'", "data:", "https:", "http:"],
       },
     },
   })
@@ -199,6 +199,7 @@ const marketingOthersRoute = require("./Routes/marketing_othersRoute");
 const billRoute = require("./Routes/BillRoute");
 const applicantRoutes = require("./Routes/ApplicationRoute");
 const testEmailRoute = require("./Routes/testEmailRoute");
+const agreementRoute = require("./Routes/agreementRoute");
 
 // Import chat routes
 const chatRoutes = require("./Routes/chatRoutes");
@@ -225,6 +226,8 @@ app.use("/api/bills", billRoute);
 app.use("/api/chat", chatRoutes);
 // ==========Test Email routes===========
 app.use("/api/test-email", testEmailRoute);
+// ==========Agreement routes============
+app.use("/api/agreements", agreementRoute);
 
 // =============PaymentFunctionality================
 // Add your payment routes here

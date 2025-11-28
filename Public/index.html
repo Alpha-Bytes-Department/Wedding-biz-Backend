@@ -3,197 +3,667 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Erie Wedding Officiants 💍</title>
-    <link rel="stylesheet" href="" />
+    <title>Erie Wedding Officiants - API Documentation 💍</title>
     <style>
-      body {
-        font-family: "Segoe UI", Arial, sans-serif;
+      :root {
+        --primary: #e67e22;
+        --primary-dark: #d35400;
+        --success: #27ae60;
+        --danger: #e74c3c;
+        --info: #3498db;
+        --warning: #f39c12;
+      }
+      * {
         margin: 0;
-        background: #f7f7f7;
-        color: #333;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #f8f9fa;
+        color: #2c3e50;
+        line-height: 1.6;
+      }
+      .nav {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      }
+      .nav-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .nav h1 {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+      }
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
       }
       .hero {
-        background: url("https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80")
-          center/cover no-repeat;
-        height: 60vh;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-      }
-      .content {
-        position: relative;
-        z-index: 2;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80")
+            center/cover;
+        padding: 4rem 2rem;
         text-align: center;
-        color: #fff;
+        color: white;
       }
-      .content h1 {
+      .hero h1 {
         font-size: 3rem;
-        margin-bottom: 0.5rem;
-        letter-spacing: 2px;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       }
-      .content p {
+      .hero p {
         font-size: 1.3rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
       }
       .btn {
-        background: #e67e22;
-        color: #fff;
+        display: inline-block;
+        background: var(--primary);
+        color: white;
         padding: 0.8rem 2rem;
         border-radius: 30px;
         text-decoration: none;
-        font-weight: bold;
-        font-size: 1.1rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        transition: background 0.2s;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
       }
       .btn:hover {
-        background: #d35400;
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4);
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
       }
       .section {
-        padding: 3rem 1rem;
-        max-width: 900px;
-        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+      .section h2 {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--primary);
+        display: inline-block;
+      }
+      .section h3 {
+        color: #34495e;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+      }
+      .section h4 {
+        color: #34495e;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+        font-size: 1.1rem;
+      }
+      .endpoint {
+        background: #f8f9fa;
+        border-left: 4px solid var(--info);
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-radius: 8px;
+        transition: all 0.3s;
+      }
+      .endpoint:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateX(5px);
+      }
+      .method {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 5px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        margin-right: 0.5rem;
+        text-transform: uppercase;
+      }
+      .method.get {
+        background: #3498db;
+        color: white;
+      }
+      .method.post {
+        background: #27ae60;
+        color: white;
+      }
+      .method.put,
+      .method.patch {
+        background: #f39c12;
+        color: white;
+      }
+      .method.delete {
+        background: #e74c3c;
+        color: white;
+      }
+      .route {
+        font-family: "Courier New", monospace;
+        background: #2c3e50;
+        color: #2ecc71;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        display: inline-block;
+        margin: 0.5rem 0;
+        font-weight: 600;
+      }
+      .auth-required {
+        background: #ffe5e5;
+        color: #c0392b;
+        padding: 0.3rem 0.8rem;
+        border-radius: 5px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+      }
+      .code-block {
+        background: #2c3e50;
+        color: #ecf0f1;
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin: 1rem 0;
+      }
+      .code-block pre {
+        margin: 0;
+      }
+      .badge {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+      }
+      .badge.file {
+        background: #3498db;
+        color: white;
+      }
+      .badge.multipart {
+        background: #9b59b6;
+        color: white;
+      }
+      .toc {
         background: #fff;
         border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-        margin-top: -60px;
-        position: relative;
-        z-index: 3;
+        padding: 2rem;
+        position: sticky;
+        top: 80px;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
       }
-      .features {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
-        margin-bottom: 2rem;
-      }
-      .feature {
-        flex: 1 1 220px;
-        background: #f9f3ec;
-        border-radius: 8px;
-        padding: 1.2rem;
-        text-align: center;
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-      }
-      .feature img {
-        width: 50px;
-        height: 50px;
-        object-fit: contain;
-        margin-bottom: 0.5rem;
-      }
-      .feature h3 {
-        margin-top: 0.5rem;
-        color: #e67e22;
-      }
-      .testimonials {
-        margin: 2rem 0;
-        text-align: center;
-      }
-      .testimonial {
-        font-style: italic;
+      .toc h3 {
+        color: var(--primary);
         margin-bottom: 1rem;
-        color: #555;
       }
-      .contact {
-        text-align: center;
-        margin-top: 2rem;
+      .toc ul {
+        list-style: none;
       }
-      .contact a {
-        color: #e67e22;
+      .toc li {
+        margin: 0.5rem 0;
+      }
+      .toc a {
+        color: #34495e;
         text-decoration: none;
-        font-weight: bold;
+        transition: all 0.3s;
+        display: block;
+        padding: 0.3rem 0.5rem;
+        border-radius: 5px;
       }
-      @media (max-width: 700px) {
-        .features {
-          flex-direction: column;
+      .toc a:hover {
+        color: var(--primary);
+        background: #f8f9fa;
+        padding-left: 1rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 2rem;
+      }
+      @media (max-width: 1024px) {
+        .grid {
+          grid-template-columns: 1fr;
         }
-        .section {
-          margin-top: 0;
+        .toc {
+          position: static;
+          max-height: none;
         }
-        .hero {
-          height: 40vh;
-        }
-        .content h1 {
+        .hero h1 {
           font-size: 2rem;
+        }
+        .nav-content {
+          flex-direction: column;
         }
       }
     </style>
   </head>
   <body>
-    <div class="hero">
-      <div class="overlay"></div>
-      <div class="content">
-        <h1>Erie Wedding Officiants</h1>
-        <p>Plan your perfect wedding & events with ease 💒</p>
-        <a href="https://wedding-front-end-gilt.vercel.app/" class="btn">Start Planning</a>
+    <!-- Navigation -->
+    <div class="nav">
+      <div class="nav-content">
+        <h1>💍 Erie Wedding Officiants API</h1>
+        <div class="nav-links">
+          <a href="#getting-started">Docs</a>
+          <a href="#users">Users</a>
+          <a href="#events">Events</a>
+          <a href="#agreements">Agreements</a>
+          <a href="#chat">Chat</a>
+          <a href="https://wedding-front-end-gilt.vercel.app/" target="_blank"
+            >Go to App →</a
+          >
+        </div>
       </div>
     </div>
-    <div class="section">
-      <h2 style="text-align: center; color: #e67e22">Our Services</h2>
-      <div class="features">
-        <div class="feature">
-          <img
-            src="https://img.icons8.com/?size=100&id=tXcAyvmVdz8I&format=png&color=000000"
-            alt="Ceremony"
-          />
-          <h3>Personalized Ceremonies</h3>
-          <p>
-            We craft unique ceremonies tailored to your love story and
-            traditions.
-          </p>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>API Documentation</h1>
+      <p>Complete REST API Reference for Erie Wedding Officiants Platform</p>
+      <a href="#getting-started" class="btn">Get Started</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="grid">
+        <!-- Table of Contents -->
+        <div class="toc">
+          <h3>📑 Contents</h3>
+          <ul>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#authentication">Authentication</a></li>
+            <li><a href="#users">👤 Users</a></li>
+            <li><a href="#applicants">📝 Applicants</a></li>
+            <li><a href="#events">📅 Events</a></li>
+            <li><a href="#agreements">📄 Agreements</a></li>
+            <li><a href="#bills">💵 Bills</a></li>
+            <li><a href="#schedule">🗓️ Schedule</a></li>
+            <li><a href="#notifications">🔔 Notifications</a></li>
+            <li><a href="#notes">📝 Notes</a></li>
+            <li><a href="#reviews">⭐ Reviews</a></li>
+            <li><a href="#chat">💬 Chat</a></li>
+            <li><a href="#marketing">📧 Marketing</a></li>
+          </ul>
         </div>
-        <div class="feature">
-          <img
-            src="https://img.icons8.com/ios-filled/50/000000/calendar.png"
-            alt="Planning"
-          />
-          <h3>Easy Event Planning</h3>
-          <p>
-            Manage schedules, bookings, and notes all in one place with our
-            platform.
-          </p>
+
+        <!-- API Documentation -->
+        <div class="content">
+          <!-- Getting Started -->
+          <div class="section" id="getting-started">
+            <h2>🚀 Getting Started</h2>
+            <p><strong>Base URL:</strong> <code class="route">/api</code></p>
+            <p><strong>Content Type:</strong> <code>application/json</code></p>
+            <p>
+              <strong>Rate Limiting:</strong> 1000 requests per 15 minutes per
+              IP
+            </p>
+            <p>
+              <strong>File Upload Limit:</strong> 2MB for profiles, 50MB for
+              chat files
+            </p>
+
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/health</span>
+              <p style="margin-top: 0.5rem">
+                <strong>Returns:</strong> API health status
+              </p>
+            </div>
+          </div>
+
+          <!-- Authentication -->
+          <div class="section" id="authentication">
+            <h2>🔐 Authentication</h2>
+            <p>
+              Include JWT token in Authorization header for protected routes:
+            </p>
+            <div class="code-block">
+              <pre>Authorization: Bearer YOUR_JWT_TOKEN</pre>
+            </div>
+            <p>
+              <strong>Token Expiry:</strong> Access tokens expire after 24
+              hours.
+            </p>
+          </div>
+
+          <!-- USERS API -->
+          <div class="section" id="users">
+            <h2>👤 Users API</h2>
+
+            <h3>Register User</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/users/register</span>
+              <div class="code-block">
+                <pre>
+{
+  "email": "user@example.com",
+  "password": "SecurePass123",
+  "role": "user | officiant",
+  "partner_1": "John Doe",
+  "partner_2": "Jane Smith",
+  "name": "Rev. Smith"
+}</pre
+                >
+              </div>
+            </div>
+
+            <h3>Login</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/users/login</span>
+              <div class="code-block">
+                <pre>
+{
+  "email": "user@example.com",
+  "password": "SecurePass123"
+}</pre
+                >
+              </div>
+            </div>
+
+            <h3>Get Current User</h3>
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/users/get-user</span>
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+
+            <h3>Get All Officiants</h3>
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/users/officiants</span>
+              <p>Public endpoint - returns verified officiants</p>
+            </div>
+
+            <h3>Update Profile</h3>
+            <div class="endpoint">
+              <span class="method patch">PATCH</span>
+              <span class="route">/users/update</span>
+              <span class="auth-required">🔒 Auth Required</span>
+              <span class="badge file">File Upload</span>
+              <p style="margin-top: 1rem">
+                Form Data: <code>profilePicture</code> (File) + user fields
+              </p>
+            </div>
+
+            <h3>Change Password</h3>
+            <div class="endpoint">
+              <span class="method patch">PATCH</span>
+              <span class="route">/users/change-password</span>
+              <span class="auth-required">🔒 Auth Required</span>
+              <div class="code-block">
+                <pre>
+{
+  "currentPassword": "OldPass123",
+  "newPassword": "NewPass456"
+}</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- EVENTS API -->
+          <div class="section" id="events">
+            <h2>📅 Events/Ceremonies API</h2>
+
+            <h3>Create Event</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/events/create</span>
+              <span class="auth-required">🔒 Auth Required</span>
+              <div class="code-block">
+                <pre>
+{
+  "title": "John & Jane Wedding",
+  "userId": "user_id",
+  "officiantId": "officiant_id",
+  "eventDate": "2024-12-31",
+  "eventTime": "15:00",
+  "location": "Central Park",
+  "status": "planned | submitted | approved",
+  "groomName": "John Doe",
+  "brideName": "Jane Smith"
+}</pre
+                >
+              </div>
+            </div>
+
+            <h3>Get Events by Role</h3>
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/events/by-role/:id/:role</span>
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+
+            <h3>Update Event</h3>
+            <div class="endpoint">
+              <span class="method patch">PATCH</span>
+              <span class="route">/events/update/:id</span>
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+
+            <h3>Delete Event</h3>
+            <div class="endpoint">
+              <span class="method delete">DELETE</span>
+              <span class="route">/events/delete/:id</span>
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+          </div>
+
+          <!-- AGREEMENTS API -->
+          <div class="section" id="agreements">
+            <h2>📄 Agreements API</h2>
+
+            <h3>Create Agreement</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/agreements/create</span>
+              <span class="auth-required">🔒 Auth Required</span>
+              <div class="code-block">
+                <pre>
+{
+  "userId": "user_id",
+  "officiantId": "officiant_id",
+  "price": 500,
+  "travelFee": 50,
+  "ceremonyDate": "2024-12-31",
+  "ceremonyLocation": "Central Park"
+}</pre
+                >
+              </div>
+            </div>
+
+            <h3>Get Agreement by User</h3>
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/agreements/user/:userId</span>
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+
+            <h3>Upload Signatures</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route"
+                >/agreements/upload-user-signatures/:agreementId</span
+              >
+              <span class="auth-required">🔒 Auth Required</span>
+              <span class="badge multipart">Multipart Form</span>
+            </div>
+
+            <h3>Mark Payment Completed</h3>
+            <div class="endpoint">
+              <span class="method patch">PATCH</span>
+              <span class="route"
+                >/agreements/payment-completed/:agreementId</span
+              >
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+
+            <h4>📊 Agreement Status Flow:</h4>
+            <div class="code-block">
+              <pre>
+pending → officiant_filled → user_signed → 
+payment_requested → payment_completed → 
+officiant_signed → used</pre
+              >
+            </div>
+          </div>
+
+          <!-- CHAT API -->
+          <div class="section" id="chat">
+            <h2>💬 Chat API</h2>
+
+            <h3>Get Messages</h3>
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/chat/messages/:roomId</span>
+              <p>Query: ?page=1&limit=50</p>
+            </div>
+
+            <h3>Send Message</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/chat/messages</span>
+              <div class="code-block">
+                <pre>
+{
+  "roomId": "private_userId_officiantId",
+  "sender": "user_id",
+  "senderName": "John Doe",
+  "type": "text | image | file",
+  "content": "Message text..."
+}</pre
+                >
+              </div>
+            </div>
+
+            <h3>Upload File</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/chat/upload-chat-file</span>
+              <span class="badge multipart">Multipart Form</span>
+              <p style="margin-top: 1rem">Max 50MB per file</p>
+            </div>
+
+            <h4>🔌 WebSocket Events:</h4>
+            <div class="code-block">
+              <pre>
+Client → Server:
+  - joinRoom
+  - sendMessage
+  - typing
+
+Server → Client:
+  - receiveMessage
+  - userTyping</pre
+              >
+            </div>
+          </div>
+
+          <!-- SCHEDULE API -->
+          <div class="section" id="schedule">
+            <h2>🗓️ Schedule API</h2>
+
+            <h3>Create Schedule</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/schedule/create</span>
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+
+            <h3>Get Schedules</h3>
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/schedule/get/:userId</span>
+              <span class="auth-required">🔒 Auth Required</span>
+            </div>
+          </div>
+
+          <!-- REVIEWS API -->
+          <div class="section" id="reviews">
+            <h2>⭐ Reviews API</h2>
+
+            <h3>Create Review</h3>
+            <div class="endpoint">
+              <span class="method post">POST</span>
+              <span class="route">/reviews/create</span>
+              <span class="auth-required">🔒 Auth Required</span>
+              <div class="code-block">
+                <pre>
+{
+  "officiantId": "officiant_id",
+  "rating": 5,
+  "comment": "Excellent service!",
+  "isPublic": true
+}</pre
+                >
+              </div>
+            </div>
+
+            <h3>Get Public Reviews</h3>
+            <div class="endpoint">
+              <span class="method get">GET</span>
+              <span class="route">/reviews/public</span>
+              <p>No auth required</p>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="section" style="text-align: center; margin-top: 4rem">
+            <h2>🎉 Start Building!</h2>
+            <p style="font-size: 1.1rem; margin: 1rem 0">
+              Create amazing wedding experiences with our API
+            </p>
+            <a href="https://wedding-front-end-gilt.vercel.app/" class="btn"
+              >Visit Application →</a
+            >
+            <p style="margin-top: 2rem; color: #7f8c8d">
+              Made with ❤️ by Erie Wedding Officiants Team<br />
+              © 2025 All Rights Reserved
+            </p>
+          </div>
         </div>
-        <div class="feature">
-          <img
-            src="https://img.icons8.com/ios-filled/50/000000/approval.png"
-            alt="Approval"
-          />
-          <h3>Quick Approvals</h3>
-          <p>
-            Get instant notifications for event approvals, bookings, and
-            updates.
-          </p>
-        </div>
-      </div>
-      <div class="testimonials">
-        <h2 style="color: #e67e22">What Couples Say</h2>
-        <div class="testimonial">
-          "Our officiant made our day truly special. The process was so easy!"
-        </div>
-        <div class="testimonial">
-          "We loved the personalized ceremony and the quick communication."
-        </div>
-        <div class="testimonial">
-          "Highly recommend Erie Wedding Officiants for a stress-free
-          experience!"
-        </div>
-      </div>
-      <div class="contact">
-        <h2 style="color: #e67e22">Contact Us</h2>
-        <p>
-          Ready to start planning?
-          <a href="mailto:info@erieweddingofficiants.com">Email us</a> or call
-          <a href="tel:+1234567890">+1 (234) 567-890</a>
-        </p>
       </div>
     </div>
   </body>
