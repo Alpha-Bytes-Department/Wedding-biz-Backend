@@ -16,11 +16,18 @@ exports.createEvent = async (req, res) => {
 
     // Get the agreement to fetch pricing information
     let eventPrice = req.body.price || 0;
-    if (officiantId) {
-      const agreement = await Agreement.findOne({ userId, officiantId });
+    if (userId) {
+      const agreement = await Agreement.findOne({ userId, status: "officiant_signed" });
       if (agreement) {
         // Apply agreement price (base price + travel fee) to the event
         eventPrice = (agreement.price || 0) + (agreement.travelFee || 0);
+      }
+      else{
+        console.log("No valid agreement found for userId:", userId);
+        return res.status(400).json({
+          error:
+            "No valid agreement found. Please ensure an agreement is signed by the officiant before submitting a ceremony.",
+        });
       }
     }
 
@@ -51,9 +58,17 @@ exports.createEvent = async (req, res) => {
         console.log(
           "Agreement updated:",
           agreementUpdate ? "Success" : "Not found"
+
         );
+        if (!agreementUpdate) {
+          return res.status(400).json({
+            error:
+              "No valid agreement found to update. Please ensure an agreement exists before submitting a ceremony.",
+          });
+        }
       } else {
         console.log("No officiantId provided, skipping agreement update");
+        
       }
 
       createNotification(
@@ -416,7 +431,7 @@ exports.assignOfficiant = async (req, res) => {
                         <div style="text-align:center; margin:30px 0;">
                           <a href="${
                             process.env.FRONTEND_URL
-                          }/dashboard/ceremony" target="_blank" style="background:linear-gradient(90deg, #4CAF50, #45a049); color:#ffffff; text-decoration:none; padding:16px 32px; border-radius:30px; font-size:16px; font-weight:bold; display:inline-block; box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                          }/dashboard" target="_blank" style="background:linear-gradient(90deg, #4CAF50, #45a049); color:#ffffff; text-decoration:none; padding:16px 32px; border-radius:30px; font-size:16px; font-weight:bold; display:inline-block; box-shadow:0 4px 15px rgba(0,0,0,0.2);">
                             View Event Details
                           </a>
                         </div>
