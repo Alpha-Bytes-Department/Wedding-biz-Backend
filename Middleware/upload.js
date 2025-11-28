@@ -19,6 +19,12 @@ const applicantStorage = multer.diskStorage({
       uploadPath = "uploads/profiles";
     } else if (file.fieldname === "portfolio") {
       uploadPath = "uploads/portfolios";
+    } else if (
+      file.fieldname === "partner1Signature" ||
+      file.fieldname === "partner2Signature" ||
+      file.fieldname === "officiantSignature"
+    ) {
+      uploadPath = "uploads/signatures";
     } else {
       uploadPath = "uploads/misc";
     }
@@ -54,10 +60,15 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// File filter for applicant files (profile picture + portfolio)
+// File filter for applicant files (profile picture + portfolio + signatures)
 const applicantFileFilter = (req, file, cb) => {
-  if (file.fieldname === "profilePicture") {
-    // Only allow image files for profile picture
+  if (
+    file.fieldname === "profilePicture" ||
+    file.fieldname === "partner1Signature" ||
+    file.fieldname === "partner2Signature" ||
+    file.fieldname === "officiantSignature"
+  ) {
+    // Only allow image files for profile picture and signatures
     const allowedImageTypes = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
     const fileExtension = path.extname(file.originalname).toLowerCase();
 
@@ -66,7 +77,7 @@ const applicantFileFilter = (req, file, cb) => {
     } else {
       cb(
         new Error(
-          "Profile picture must be an image file (jpg, jpeg, png, gif, webp)"
+          "Profile picture and signatures must be image files (jpg, jpeg, png, gif, webp)"
         ),
         false
       );
@@ -95,16 +106,16 @@ const upload = multer({
   },
 });
 
-// Upload configuration for applicant applications
+// Upload configuration for applicant applications and signatures
 const applicantUpload = multer({
   storage: applicantStorage,
   fileFilter: applicantFileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB limit per file
-    files: 2, // Maximum 2 files (profile picture + portfolio)
+    fileSize: 1 * 1024 * 1024, // 1MB limit per file for signatures
+    files: 3, // Maximum 3 files (profile picture/portfolio OR 3 signatures)
   },
 });
 
-module.exports = upload; // Default export for backward compatibility
-module.exports.upload = upload; // Named export
-module.exports.applicantUpload = applicantUpload; // New upload configuration for applicants
+module.exports = applicantUpload; // Default export uses applicantUpload to handle all file types
+module.exports.upload = upload; // Named export for simple single file uploads
+module.exports.applicantUpload = applicantUpload; // New upload configuration for applicants and signatures

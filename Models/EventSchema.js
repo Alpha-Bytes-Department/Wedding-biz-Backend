@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const EventSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  ceremonyType: { type: String, required: true },
   price: { type: Number, required: false, default: 0 }, // Add price field for booking proposals
   // Greetings step fields
   groomName: { type: String, required: false },
