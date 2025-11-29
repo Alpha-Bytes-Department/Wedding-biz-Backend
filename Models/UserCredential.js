@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 // const { all } = require("../Routes/userRoute");
 
 const userSchema = new mongoose.Schema({
-  partner_1:String,
+  partner_1: String,
   partner_2: String,
   email: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true, minlength: 6 },
@@ -16,11 +16,16 @@ const userSchema = new mongoose.Schema({
   },
   weddingDate: Date,
   location: String,
-  
+
   languages: [String],
   profilePicture: String,
   name: String,
   AgreementAccepted: { type: Boolean, default: false },
+  currentOfficiant: {
+    officiantId: { type: String, default: null },
+    officiantName: { type: String, default: null },
+    assignedAt: { type: Date, default: null },
+  },
   specialization: String,
   bookingPackage: [
     {
