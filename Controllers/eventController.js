@@ -17,12 +17,14 @@ exports.createEvent = async (req, res) => {
     // Get the agreement to fetch pricing information
     let eventPrice = req.body.price || 0;
     if (userId) {
-      const agreement = await Agreement.findOne({ userId, status: "officiant_signed" });
+      const agreement = await Agreement.findOne({
+        userId,
+        status: "officiant_signed",
+      });
       if (agreement) {
         // Apply agreement price (base price + travel fee) to the event
         eventPrice = (agreement.price || 0) + (agreement.travelFee || 0);
-      }
-      else{
+      } else {
         console.log("No valid agreement found for userId:", userId);
         return res.status(400).json({
           error:
@@ -58,7 +60,6 @@ exports.createEvent = async (req, res) => {
         console.log(
           "Agreement updated:",
           agreementUpdate ? "Success" : "Not found"
-
         );
         if (!agreementUpdate) {
           return res.status(400).json({
@@ -68,7 +69,6 @@ exports.createEvent = async (req, res) => {
         }
       } else {
         console.log("No officiantId provided, skipping agreement update");
-        
       }
 
       createNotification(
@@ -312,6 +312,18 @@ exports.assignOfficiant = async (req, res) => {
     foundEvent.officiantId = officiantId;
     foundEvent.officiantName = officiantName;
     await foundEvent.save();
+
+    // Update user's currentOfficiant field to keep in sync
+    const user = await User.findById(foundEvent.userId);
+    if (user) {
+      user.currentOfficiant = {
+        officiantId,
+        officiantName,
+        assignedAt: new Date(),
+      };
+      await user.save();
+      console.log(`✓ Updated user's currentOfficiant: ${officiantName}`);
+    }
 
     // Create notification for officiant
     createNotification(

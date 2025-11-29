@@ -517,8 +517,20 @@ exports.updateUser = async (req, res) => {
 
     // Handle profile picture upload and set full URL
     if (req.file && req.file.filename) {
+      console.log("=== FILE UPLOAD DEBUG ===");
+      console.log("req.file:", req.file);
+      console.log("req.file.path:", req.file.path);
+      console.log("req.file.filename:", req.file.filename);
+      console.log("req.file.destination:", req.file.destination);
+
       const baseUrl = `https://erieweddingofficiants.com`;
-      updateFields.profilePicture = `${baseUrl}/uploads/${req.file.filename}`;
+      // req.file.path contains the full path like "uploads/profiles/filename.jpg"
+      // Extract the relative path from uploads onwards
+      const relativePath = req.file.path.replace(/\\/g, "/"); // Handle Windows backslashes
+      updateFields.profilePicture = `${baseUrl}/${relativePath}`;
+      console.log("Profile picture saved to:", relativePath);
+      console.log("Full URL:", updateFields.profilePicture);
+      console.log("=== END DEBUG ===");
     }
 
     // Log the fields being updated
@@ -637,4 +649,112 @@ exports.deleteAnyUser = async (req, res) => {
 //  Protected Example
 exports.getDashboard = async (req, res) => {
   res.json({ msg: "Welcome to dashboard", user: req.user });
+};
+
+// Assign Officiant to User
+exports.assignOfficiantToUser = async (req, res) => {
+  const { userId } = req.params;
+  const { officiantId, officiantName } = req.body;
+
+  try {
+    // Validate input
+    if (!officiantId || !officiantName) {
+      return res.status(400).json({
+        error:
+          "Missing required fields: officiantId and officiantName are required",
+      });
+    }
+
+    // Find the user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if user has accepted agreement
+    if (!user.AgreementAccepted) {
+      return res.status(400).json({
+        error:
+          "Cannot assign officiant: User must have an accepted agreement first",
+      });
+    }
+
+    // Check if officiant exists and is available
+    const officiant = await User.findById(officiantId);
+    if (!officiant) {
+      return res.status(404).json({ error: "Officiant not found" });
+    }
+
+    if (officiant.role !== "officiant") {
+      return res
+        .status(400)
+        .json({ error: "Selected user is not an officiant" });
+    }
+
+    if (!officiant.availability) {
+      return res.status(400).json({
+        error:
+          "Officiant is currently not available. Please select another officiant.",
+      });
+    }
+
+    // Check if agreement exists and is not used
+    const Agreement = require("../Models/AgreementSchema");
+    const agreement = await Agreement.findOne({
+      userId,
+      status: { $in: ["payment_completed", "officiant_signed"] },
+    });
+
+    if (!agreement) {
+      return res.status(400).json({
+        error:
+          "No valid agreement found. User must complete the agreement process first.",
+      });
+    }
+
+    if (agreement.status === "used") {
+      return res.status(400).json({
+        error:
+          "Agreement has already been used for a ceremony. Cannot reassign officiant.",
+      });
+    }
+
+    // Update user's currentOfficiant
+    user.currentOfficiant = {
+      officiantId,
+      officiantName,
+      assignedAt: new Date(),
+    };
+    await user.save();
+
+    // Create notifications
+    const { createNotification } = require("./notificationController");
+
+    createNotification(
+      userId,
+      "Officiant Assigned",
+      `${officiantName} has been assigned as your officiant. You can now proceed to create your ceremony.`
+    );
+
+    createNotification(
+      officiantId,
+      "New Assignment",
+      `You have been assigned to ${
+        user.name || user.email
+      }. They will be creating a ceremony with you.`
+    );
+
+    res.status(200).json({
+      msg: "Officiant assigned successfully",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        currentOfficiant: user.currentOfficiant,
+      },
+    });
+  } catch (err) {
+    console.error("Error assigning officiant to user:", err);
+    res.status(500).json({ error: err.message });
+  }
 };
