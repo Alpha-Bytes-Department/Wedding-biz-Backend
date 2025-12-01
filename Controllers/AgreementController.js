@@ -62,7 +62,7 @@ exports.createAgreement = async (req, res) => {
             subject: "New Wedding Agreement - Erie Wedding Officiants",
             html: `
               <h2>Your Wedding Agreement is Ready</h2>
-              <p>Hello ${user.Name},</p>
+              <p>Hello ${user.name || partner1Name},</p>
               <p>Your officiant has created a ceremony agreement for you. Please log in to review and sign.</p>
               <p><strong>Agreement Details:</strong></p>
               <ul>
@@ -70,7 +70,7 @@ exports.createAgreement = async (req, res) => {
                 <li>Date: ${new Date(eventDate).toLocaleDateString()}</li>
                 <li>Location: ${location}</li>
                 <li>Ceremony Fee: $${price.toFixed(2)}</li>
-                ${
+                ${ 
                   travelFee > 0
                     ? `<li>Travel Fee: $${travelFee.toFixed(2)}</li>`
                     : ""

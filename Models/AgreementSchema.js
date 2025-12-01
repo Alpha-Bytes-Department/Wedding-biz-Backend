@@ -51,6 +51,6 @@ const AgreementSchema = new mongoose.Schema({
 });
 
 // Compound unique index: one agreement per user-officiant pair
-AgreementSchema.index({ userId: 1, officiantId: 1 }, { unique: true });
+// AgreementSchema.index({ userId: 1, officiantId: 1 }, { unique: true });
 
 module.exports = mongoose.model("Agreement", AgreementSchema);
