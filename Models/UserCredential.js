@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema({
   },
   weddingDate: Date,
   location: String,
+  needRehearsal: { type: Boolean, default: null },
+  rehearsalDate: { type: Date, default: null },
 
   languages: [String],
   profilePicture: String,

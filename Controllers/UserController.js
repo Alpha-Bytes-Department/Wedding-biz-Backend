@@ -503,6 +503,8 @@ exports.updateUser = async (req, res) => {
       "location",
       "weddingDate",
       "availability",
+      "needRehearsal",
+      "rehearsalDate",
     ];
 
     allowedFields.forEach((field) => {
