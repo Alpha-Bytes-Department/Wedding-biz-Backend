@@ -11,7 +11,7 @@ const ScheduleSchema = new mongoose.Schema({
     officiantName: { type: String, required: true },
     officiantImage: { type: String, required: false },
     officiantId: { type: String, required: true },
-    // officiantWorkStatus: { type: String, required: true },
+    agreementId: { type: String, required: false },
     message: { type: String, required: false },
     packageName: { type: String },
     approvedStatus: { type: String, enum: ['approved', 'pending', 'rejected'], required: false, default: 'pending' },

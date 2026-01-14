@@ -5,6 +5,7 @@ const upload = require("../Middleware/upload");
 const {
   createAgreement,
   getAgreementByUserId,
+  getAgreementById,
   updateAgreementDetails,
   uploadUserSignatures,
   sendPaymentRequest,
@@ -18,6 +19,9 @@ router.post("/create", auth, createAgreement);
 
 // Get Agreement by User ID
 router.get("/user/:userId", auth, getAgreementByUserId);
+
+// Get Agreement by ID
+router.get("/:agreementId", auth, getAgreementById);
 
 // Update Agreement Details (Officiant)
 router.put("/update-details/:agreementId", auth, updateAgreementDetails);

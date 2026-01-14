@@ -16,6 +16,7 @@ exports.createAgreement = async (req, res) => {
       price,
       travelFee,
       userId,
+      scheduleId,
     } = req.body;
     const officiantId = req.user.id;
     // Get from authenticated user
@@ -36,6 +37,15 @@ exports.createAgreement = async (req, res) => {
 
     await newAgreement.save();
 
+    // Update Schedule with agreementId if scheduleId provided
+    if (scheduleId) {
+      const Schedule = require("../Models/ScheduleSchema");
+      await Schedule.findByIdAndUpdate(scheduleId, {
+        agreementId: newAgreement._id.toString(),
+        updatedAt: new Date(),
+      });
+    }
+
     // Notify user that agreement is ready
     if (userId) {
       await createNotification(
@@ -49,7 +59,9 @@ exports.createAgreement = async (req, res) => {
         const user = await User.findById(userId);
         if (user && user.email) {
           const transporter = nodemailer.createTransporter({
-            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
             auth: {
               user: process.env.EMAIL_USER,
               pass: process.env.EMAIL_PASS,
@@ -57,7 +69,7 @@ exports.createAgreement = async (req, res) => {
           });
 
           await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: `"Erie Wedding Officiants" <${process.env.EMAIL_USER}>`,
             to: user.email,
             subject: "New Wedding Agreement - Erie Wedding Officiants",
             html: `
@@ -362,6 +374,29 @@ exports.uploadOfficiantSignature = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error uploading signature", error: error.message });
+  }
+};
+
+// Get Agreement by ID
+exports.getAgreementById = async (req, res) => {
+  try {
+    const { agreementId } = req.params;
+    
+    const agreement = await Agreement.findById(agreementId);
+    
+    if (!agreement) {
+      return res.status(404).json({ message: "Agreement not found" });
+    }
+
+    res.status(200).json({
+      message: "Agreement retrieved successfully",
+      agreement,
+    });
+  } catch (error) {
+    console.error("Error fetching agreement by ID:", error);
+    res
+      .status(500)
+      .json({ message: "Error fetching agreement", error: error.message });
   }
 };
 
