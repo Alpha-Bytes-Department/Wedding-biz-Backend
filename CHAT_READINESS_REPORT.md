@@ -149,7 +149,7 @@ socket.emit("sendMessage", {
 
 // Listen for messages
 socket.on("receiveMessage", (message) => {
-  console.log("New message:", message);
+  
 });
 ```
 
@@ -196,7 +196,7 @@ const uploadResponse = await fetch("/api/chat/upload-chat-file", {
    - Configure Redis for Socket.IO scaling
    - Set up load balancing if needed
 
-## ✨ **Conclusion**
+##  **Conclusion**
 
 Your Wedding Backend is **100% ready** for real-time chatting! The implementation includes:
 
