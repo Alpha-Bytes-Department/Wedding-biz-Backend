@@ -41,7 +41,7 @@ app.use(
       "*",
       "https://www.erieweddingofficiants.com",
       "https://erieweddingofficiants.com",
-      "http://localhost:3001",
+      "http://localhost:3000",
     ], // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: [
