@@ -331,7 +331,7 @@ exports.assignOfficiant = async (req, res) => {
       "Event Assignment",
       `You have been assigned to event: "${foundEvent.title}" scheduled for ${
         foundEvent.eventDate
-          ? new Date(foundEvent.eventDate).toLocaleDateString()
+          ? new Date(foundEvent.eventDate).toLocaleDateString('en-US', { timeZone: 'America/New_York', year: 'numeric', month: 'long', day: 'numeric' })
           : "TBD"
       }`
     );
@@ -410,7 +410,7 @@ exports.assignOfficiant = async (req, res) => {
                               ? `<p style="margin:0 0 10px 0; font-size:14px; color:#666;">
                                 <strong>Date:</strong> ${new Date(
                                   foundEvent.eventDate
-                                ).toLocaleDateString()}
+                                ).toLocaleDateString('en-US', { timeZone: 'America/New_York', year: 'numeric', month: 'long', day: 'numeric' })}
                               </p>`
                               : ""
                           }
@@ -419,7 +419,7 @@ exports.assignOfficiant = async (req, res) => {
                               ? `<p style="margin:0 0 10px 0; font-size:14px; color:#666;">
                                 <strong>Time:</strong> ${new Date(
                                   foundEvent.eventTime
-                                ).toLocaleTimeString()}
+                                ).toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit', hour12: true })}
                               </p>`
                               : ""
                           }

@@ -67,7 +67,7 @@ exports.createAgreement = async (req, res) => {
               <p><strong>Agreement Details:</strong></p>
               <ul>
                 <li>Partners: ${partner1Name} & ${partner2Name}</li>
-                <li>Date: ${new Date(eventDate).toLocaleDateString()}</li>
+                <li>Date: ${new Date(eventDate).toLocaleDateString('en-US', { timeZone: 'America/New_York', year: 'numeric', month: 'long', day: 'numeric' })}</li>
                 <li>Location: ${location}</li>
                 <li>Ceremony Fee: $${price.toFixed(2)}</li>
                 ${ 
