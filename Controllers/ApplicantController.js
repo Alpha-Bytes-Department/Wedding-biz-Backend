@@ -135,7 +135,7 @@ const updateApplicationStatus = async (req, res) => {
   try {
     if (status === "approved") {
 
-      await user.findByIdAndUpdate(userId, { role: "officiant", experience: applicantUser.experience });
+      await user.findByIdAndUpdate(userId, { role: "officiant", experience: applicantUser.experience ,profilePicture: applicantUser.profilePicture ,name: applicantUser.name, specialization: applicantUser.speciality ,bio:applicantUser.experience_details });
 
       
       createNotification(
