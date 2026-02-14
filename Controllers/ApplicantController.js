@@ -89,7 +89,7 @@ const createApplication = async (req, res) => {
     createNotification(
       userId,
       "Application Submitted",
-      "Your application has been submitted successfully."
+      "Your application has been submitted successfully.",
     );
 
     res.status(201).json({
@@ -134,21 +134,29 @@ const updateApplicationStatus = async (req, res) => {
 
   try {
     if (status === "approved") {
+      await user.findByIdAndUpdate(userId, {
+        role: "officiant",
+        experience: applicantUser.experience,
+        languages: applicantUser.language,
+        specialization: applicantUser.speciality,
+        profilePicture: applicantUser.profilePicture,
+        bio: applicantUser.experience_details,
+        name: applicantUser.name,
+        address: applicantUser.address,
+        phone: applicantUser.contactNo,
+      });
 
-      await user.findByIdAndUpdate(userId, { role: "officiant", experience: applicantUser.experience });
-
-      
       createNotification(
         userId,
         "Application Approved",
-        "Your application to become an officiant has been approved."
+        "Your application to become an officiant has been approved.",
       );
     }
 
     const updatedApplication = await applicant.findByIdAndUpdate(
       applicationId,
       { status },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedApplication) {
