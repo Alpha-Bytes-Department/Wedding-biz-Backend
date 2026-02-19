@@ -5,19 +5,28 @@ const upload = require("../Middleware/upload");
 const {
   createAgreement,
   getAgreementByUserId,
+  getAllAgreementsByUserId,
+  getAllAgreementsByOfficiantId,
   getAgreementById,
   updateAgreementDetails,
   uploadUserSignatures,
   sendPaymentRequest,
   markPaymentCompleted,
   uploadOfficiantSignature,
+  deleteAgreement,
   getAllAgreements,
 } = require("../Controllers/AgreementController");
 
 // Create Agreement (Officiant creates from scratch)
 router.post("/create", auth, createAgreement);
 
-// Get Agreement by User ID
+// Get All Agreements by Officiant (must be before /:agreementId)
+router.get("/officiant/my", auth, getAllAgreementsByOfficiantId);
+
+// Get All Agreements by User ID (returns array)
+router.get("/user/:userId/all", auth, getAllAgreementsByUserId);
+
+// Get Agreement by User ID (single - legacy)
 router.get("/user/:userId", auth, getAgreementByUserId);
 
 // Get Agreement by ID
@@ -25,6 +34,9 @@ router.get("/:agreementId", auth, getAgreementById);
 
 // Update Agreement Details (Officiant)
 router.put("/update-details/:agreementId", auth, updateAgreementDetails);
+
+// Delete Agreement (Officiant)
+router.delete("/:agreementId", auth, deleteAgreement);
 
 // Upload User Signatures (2 images)
 router.post(
@@ -34,7 +46,7 @@ router.post(
     { name: "partner1Signature", maxCount: 1 },
     { name: "partner2Signature", maxCount: 1 },
   ]),
-  uploadUserSignatures
+  uploadUserSignatures,
 );
 
 // Send Payment Request (Officiant)
@@ -48,7 +60,7 @@ router.post(
   "/upload-officiant-signature/:agreementId",
   auth,
   upload.single("officiantSignature"),
-  uploadOfficiantSignature
+  uploadOfficiantSignature,
 );
 
 // Get All Agreements (Admin)

@@ -51,7 +51,7 @@ exports.createAgreement = async (req, res) => {
       await createNotification(
         userId,
         "agreement",
-        "Your officiant has created a ceremony agreement. Please review and sign."
+        "Your officiant has created a ceremony agreement. Please review and sign.",
       );
 
       // Send email notification
@@ -79,10 +79,10 @@ exports.createAgreement = async (req, res) => {
               <p><strong>Agreement Details:</strong></p>
               <ul>
                 <li>Partners: ${partner1Name} & ${partner2Name}</li>
-                <li>Date: ${new Date(eventDate).toLocaleDateString('en-US', { timeZone: 'America/New_York', year: 'numeric', month: 'long', day: 'numeric' })}</li>
+                <li>Date: ${new Date(eventDate).toLocaleDateString("en-US", { timeZone: "America/New_York", year: "numeric", month: "long", day: "numeric" })}</li>
                 <li>Location: ${location}</li>
                 <li>Ceremony Fee: $${price.toFixed(2)}</li>
-                ${ 
+                ${
                   travelFee > 0
                     ? `<li>Travel Fee: $${travelFee.toFixed(2)}</li>`
                     : ""
@@ -115,12 +115,10 @@ exports.createAgreement = async (req, res) => {
 exports.getAgreementByUserId = async (req, res) => {
   try {
     const { userId } = req.params;
-    console.log("Requester ID:", userId);
     // Find agreement where user is either the client or the officiant
     const agreement = await Agreement.findOne({
       userId,
     });
-    console.log("Fetched agreement:", agreement);
 
     if (!agreement) {
       return res.status(404).json({ message: "Agreement not found" });
@@ -135,6 +133,58 @@ exports.getAgreementByUserId = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error fetching agreement", error: error.message });
+  }
+};
+
+// Get All Agreements by User ID (returns array)
+exports.getAllAgreementsByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const agreements = await Agreement.find({ userId }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      message: "Agreements retrieved successfully",
+      agreements,
+    });
+  } catch (error) {
+    console.error("Error fetching agreements by user ID:", error);
+    res
+      .status(500)
+      .json({ message: "Error fetching agreements", error: error.message });
+  }
+};
+
+// Get All Agreements by Officiant ID (returns array)
+exports.getAllAgreementsByOfficiantId = async (req, res) => {
+  try {
+    const officiantId = req.user.id;
+    const agreements = await Agreement.find({ officiantId }).sort({
+      createdAt: -1,
+    });
+
+    // Populate user info for each agreement
+    const populatedAgreements = await Promise.all(
+      agreements.map(async (agreement) => {
+        const user = await User.findById(agreement.userId).select(
+          "name email profilePicture",
+        );
+        return {
+          ...agreement.toObject(),
+          userName: user?.name || "Unknown",
+          userEmail: user?.email || "",
+        };
+      }),
+    );
+
+    res.status(200).json({
+      message: "Agreements retrieved successfully",
+      agreements: populatedAgreements,
+    });
+  } catch (error) {
+    console.error("Error fetching agreements by officiant ID:", error);
+    res
+      .status(500)
+      .json({ message: "Error fetching agreements", error: error.message });
   }
 };
 
@@ -157,6 +207,21 @@ exports.updateAgreementDetails = async (req, res) => {
       return res.status(404).json({ message: "Agreement not found" });
     }
 
+    // Edit-lock: cannot edit after couple has signed
+    const lockedStatuses = [
+      "user_signed",
+      "payment_requested",
+      "payment_completed",
+      "officiant_signed",
+      "completed",
+      "used",
+    ];
+    if (lockedStatuses.includes(agreement.status)) {
+      return res.status(400).json({
+        message: "Agreement cannot be edited after the couple has signed",
+      });
+    }
+
     agreement.officiantName = officiantName || agreement.officiantName;
     agreement.eventDate = eventDate || agreement.eventDate;
     agreement.partner1Name = partner1Name || agreement.partner1Name;
@@ -175,7 +240,7 @@ exports.updateAgreementDetails = async (req, res) => {
     await createNotification(
       agreement.userId,
       "agreement",
-      "Officiant has filled the agreement details. Please review and sign."
+      "Officiant has filled the agreement details. Please review and sign.",
     );
 
     res.status(200).json({
@@ -227,7 +292,7 @@ exports.uploadUserSignatures = async (req, res) => {
     await createNotification(
       agreement.officiantId,
       "agreement",
-      "Users have signed the agreement. You can now send payment request."
+      "Users have signed the agreement. You can now send payment request.",
     );
 
     res.status(200).json({
@@ -270,7 +335,7 @@ exports.sendPaymentRequest = async (req, res) => {
       "payment",
       `Payment request sent for ${agreement.partner1Name} & ${
         agreement.partner2Name
-      } ceremony. Amount: $${agreement.price + agreement.travelFee}`
+      } ceremony. Amount: $${agreement.price + agreement.travelFee}`,
     );
 
     res.status(200).json({
@@ -308,7 +373,7 @@ exports.markPaymentCompleted = async (req, res) => {
     await createNotification(
       agreement.officiantId,
       "payment",
-      "Payment received. You can now sign the agreement."
+      "Payment received. You can now sign the agreement.",
     );
 
     res.status(200).json({
@@ -362,7 +427,7 @@ exports.uploadOfficiantSignature = async (req, res) => {
     await createNotification(
       agreement.userId,
       "agreement",
-      "Agreement completed! You can now create your ceremony."
+      "Agreement completed! You can now create your ceremony.",
     );
 
     res.status(200).json({
@@ -381,9 +446,9 @@ exports.uploadOfficiantSignature = async (req, res) => {
 exports.getAgreementById = async (req, res) => {
   try {
     const { agreementId } = req.params;
-    
+
     const agreement = await Agreement.findById(agreementId);
-    
+
     if (!agreement) {
       return res.status(404).json({ message: "Agreement not found" });
     }
@@ -397,6 +462,59 @@ exports.getAgreementById = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error fetching agreement", error: error.message });
+  }
+};
+
+// Delete Agreement
+exports.deleteAgreement = async (req, res) => {
+  try {
+    const { agreementId } = req.params;
+
+    const agreement = await Agreement.findById(agreementId);
+    if (!agreement) {
+      return res.status(404).json({ message: "Agreement not found" });
+    }
+
+    // Only allow deletion if user is the officiant who created it or an admin
+    const requesterId = req.user.id;
+    if (agreement.officiantId !== requesterId) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to delete this agreement" });
+    }
+
+    // Cannot delete if payment has been completed or agreement is signed
+    const protectedStatuses = [
+      "payment_completed",
+      "officiant_signed",
+      "completed",
+      "used",
+    ];
+    if (protectedStatuses.includes(agreement.status)) {
+      return res.status(400).json({
+        message: "Cannot delete an agreement after payment has been completed",
+      });
+    }
+
+    await Agreement.findByIdAndDelete(agreementId);
+
+    // Notify user if agreement had been shared
+    if (agreement.userId) {
+      await createNotification(
+        agreement.userId,
+        "agreement",
+        "An agreement has been cancelled by the officiant.",
+      );
+    }
+
+    res.status(200).json({
+      message: "Agreement deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting agreement:", error);
+    res
+      .status(500)
+      .json({ message: "Error deleting agreement", error: error.message });
   }
 };
 

@@ -50,7 +50,7 @@ const AgreementSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-// Compound unique index: one agreement per user-officiant pair
-AgreementSchema.index({ userId: 1, officiantId: 1 }, { unique: true });
+// Index for fast lookups (removed unique constraint to allow multiple agreements)
+AgreementSchema.index({ userId: 1, officiantId: 1 });
 
 module.exports = mongoose.model("Agreement", AgreementSchema);
