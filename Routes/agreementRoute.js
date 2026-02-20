@@ -12,6 +12,7 @@ const {
   uploadUserSignatures,
   sendPaymentRequest,
   markPaymentCompleted,
+  acceptPayLater,
   uploadOfficiantSignature,
   deleteAgreement,
   getAllAgreements,
@@ -54,6 +55,9 @@ router.post("/send-payment-request/:agreementId", auth, sendPaymentRequest);
 
 // Mark Payment as Completed
 router.patch("/payment-completed/:agreementId", auth, markPaymentCompleted);
+
+// Accept Pay Later
+router.patch("/pay-later/:agreementId", auth, acceptPayLater);
 
 // Upload Officiant Signature
 router.post(

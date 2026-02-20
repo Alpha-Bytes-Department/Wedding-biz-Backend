@@ -212,6 +212,7 @@ exports.updateAgreementDetails = async (req, res) => {
       "user_signed",
       "payment_requested",
       "payment_completed",
+      "pay_later_accepted",
       "officiant_signed",
       "completed",
       "used",
@@ -404,10 +405,16 @@ exports.uploadOfficiantSignature = async (req, res) => {
       return res.status(404).json({ message: "Agreement not found" });
     }
 
-    if (agreement.status !== "payment_completed") {
+    if (
+      agreement.status !== "payment_completed" &&
+      agreement.status !== "pay_later_accepted"
+    ) {
       return res
         .status(400)
-        .json({ message: "Payment must be completed before signing" });
+        .json({
+          message:
+            "Payment must be completed or pay later must be accepted before signing",
+        });
     }
 
     const baseUrl =
@@ -483,9 +490,10 @@ exports.deleteAgreement = async (req, res) => {
         .json({ message: "Not authorized to delete this agreement" });
     }
 
-    // Cannot delete if payment has been completed or agreement is signed
+    // Cannot delete if payment has been completed/pay later accepted or agreement is signed
     const protectedStatuses = [
       "payment_completed",
+      "pay_later_accepted",
       "officiant_signed",
       "completed",
       "used",
@@ -515,6 +523,53 @@ exports.deleteAgreement = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error deleting agreement", error: error.message });
+  }
+};
+
+// Accept Pay Later (User chooses to pay later)
+exports.acceptPayLater = async (req, res) => {
+  try {
+    const { agreementId } = req.params;
+
+    const agreement = await Agreement.findById(agreementId);
+    if (!agreement) {
+      return res.status(404).json({ message: "Agreement not found" });
+    }
+
+    if (agreement.status !== "payment_requested") {
+      return res
+        .status(400)
+        .json({
+          message: "Payment must be requested before accepting pay later",
+        });
+    }
+
+    agreement.status = "pay_later_accepted";
+    agreement.payLater = true;
+    agreement.payLaterAcceptedAt = new Date();
+    agreement.updatedAt = new Date();
+
+    await agreement.save();
+
+    // Update user's AgreementAccepted status
+    await User.findByIdAndUpdate(agreement.userId, { AgreementAccepted: true });
+
+    // Notify officiant
+    await createNotification(
+      agreement.officiantId,
+      "agreement",
+      `Couple has agreed to pay later for ${agreement.partner1Name} & ${agreement.partner2Name} ceremony ($${(agreement.price + agreement.travelFee).toFixed(2)}). You can now sign the agreement.`,
+    );
+
+    res.status(200).json({
+      message: "Pay later accepted successfully",
+      agreement,
+    });
+  } catch (error) {
+    console.error("Error accepting pay later:", error);
+    res
+      .status(500)
+      .json({ message: "Error accepting pay later", error: error.message });
   }
 };
 

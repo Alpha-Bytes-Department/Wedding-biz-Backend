@@ -22,12 +22,16 @@ const AgreementSchema = new mongoose.Schema({
       "user_signed",
       "payment_requested",
       "payment_completed",
+      "pay_later_accepted",
       "officiant_signed",
       "completed",
       "used",
     ],
     default: "pending",
   },
+
+  // Pay Later option
+  payLater: { type: Boolean, default: false },
 
   // Track if agreement was used for ceremony submission
   isUsedForCeremony: { type: Boolean, default: false },
@@ -43,6 +47,7 @@ const AgreementSchema = new mongoose.Schema({
   userSignedAt: { type: Date },
   paymentRequestedAt: { type: Date },
   paymentCompletedAt: { type: Date },
+  payLaterAcceptedAt: { type: Date },
   officiantSignedAt: { type: Date },
   completedAt: { type: Date },
 
